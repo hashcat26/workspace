@@ -7,7 +7,7 @@ To get this repository, run `curl -kLO https://github.com/hashcat26/workspace/ar
 
 Extracting and cleanup:
 ---------------------------------
-To extract the files and perform cleanup, run `tar -xf master.zip & del master.zip`.
+To extract the files and perform cleanup, run `tar -xf master.zip & del master.zip`.\
 To perform cleanup after the extraction, run `robocopy /move /s workspace-master .`.
 
 Running the setup:

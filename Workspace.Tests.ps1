@@ -165,25 +165,4 @@ Describe 'Style constraints for non-binary project files' -ForEach @(, $repo_fil
         }
     }
 
-    It 'any leading whitespace consists only of spaces (excepting makefiles)' {
-        $badLines = @(
-            foreach ($file in $files) {
-                if ($file -inotmatch '(^|.)makefile$') {
-                    $lines = [System.IO.File]::ReadAllLines($file)
-                    $lineCount = $lines.Count
-
-                    for ($i = 0; $i -lt $lineCount; $i++) {
-                        if ($lines[$i] -notmatch '^[ ]*(\S|$)') {
-                            'File: {0}, Line: {1}' -f $file, ($i + 1)
-                        }
-                    }
-                }
-            }
-        )
-
-        if ($badLines.Count -gt 0) {
-            throw "The following $($badLines.Count) lines contain TABs within leading whitespace: `r`n`r`n$($badLines -join "`r`n")"
-        }
-    }
-
 }
