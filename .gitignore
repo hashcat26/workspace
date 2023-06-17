@@ -1,0 +1,10 @@
+*~
+._*
+
+.DS_Store
+Thumbs.db
+desktop.ini
+
+downloads/
+packages/
+utilities/
