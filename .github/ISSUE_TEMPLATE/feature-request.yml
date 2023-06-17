@@ -1,0 +1,34 @@
+name: Feature Request
+description: Open an issue about a missing feature.
+title: "[Request]: "
+labels: ["feature-request"]
+body:
+- type: checkboxes
+  attributes:
+    label: Prerequisites
+    options:
+    - label: I have searched all issues/PRs to ensure it has not already been reported or fixed.
+      required: true
+- type: checkboxes
+  attributes:
+    label: Criteria
+    description: For a feature to be acceptable in this workspace setup, it should be
+    options:
+    - label: Criteria 1
+      required: true
+    - label: Criteria 2
+      required: true
+    - label: Criteria 3
+      required: true
+- type: input
+  attributes:
+    label: Name
+    description: Name of the feature
+  validations:
+    required: true
+- type: input
+  attributes:
+    label: Description
+    description: Clear and concise details of what it is
+  validations:
+    required: true

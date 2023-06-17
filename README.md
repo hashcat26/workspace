@@ -7,9 +7,9 @@ To get this repository, run `curl -kLO https://github.com/hashcat26/workspace/ar
 
 Extracting and cleanup:
 ---------------------------------
-To extract the files and perform cleanup, run `tar -xf master.zip & del master.zip`.\
+To extract the files, run `tar -xf master.zip & del master.zip`.\
 To perform cleanup after the extraction, run `robocopy /move /s workspace-master .`.
 
 Running the setup:
 ---------------------------------
-To proceed with the portable workspace setup, do `powershell ./setup.ps1`.
+To proceed with the workspace setup, do `powershell ./setup.ps1`.
