@@ -3,11 +3,12 @@ Workspace setup written in [PowerShell](https://www.powershellgallery.com), a Wi
 
 Getting this repository:
 ---------------------------------
-To get this repository, run `curl -kLo hashcat.zip https://github.com/hashcat26/workspace/archive/refs/heads/master.zip`.
+To get this repository, run `curl -kLO https://github.com/hashcat26/workspace/archive/refs/heads/master.zip`.
 
 Extracting and cleanup:
 ---------------------------------
-To extract the files and perform cleanup, run `tar -xf hashcat.zip & del hashcat.zip & robocopy /move /s workspace-master .`.
+To extract the files and perform cleanup, run `tar -xf master.zip & del master.zip`.
+To perform cleanup after the extraction, run `robocopy /move /s workspace-master .`.
 
 Running the setup:
 ---------------------------------

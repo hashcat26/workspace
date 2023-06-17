@@ -25,7 +25,7 @@ jobs:
       - name: Test Workspace
         shell: powershell
         run: |
-          .\hashcat\test.ps1
+          .\hashcat\binaries\test.ps1
   latest:
     name: Latest Test
     runs-on: windows-latest
@@ -43,4 +43,4 @@ jobs:
       - name: Test Workspace
         shell: pwsh
         run: |
-          .\hashcat\test.ps1
+          .\hashcat\binaries\test.ps1
