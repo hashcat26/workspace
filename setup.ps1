@@ -1,5 +1,12 @@
+$DefaultDir = Convert-Path(pwd)
+$GlobalsDir = "$DefaultDir\globals"
+
 $ErrorActionPreference = "SilentlyContinue"
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
-md configs, downloads, packages, utilities
+mkdir downloads, packages, utilities
 irm get.scoop.sh -outfile "downloads/scoop.ps1"
+
+./downloads/scoop.ps1 -ScoopDir $DefaultDir -ScoopGlobalDir $GlobalsDir
+
+scoop status
