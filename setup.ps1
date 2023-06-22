@@ -1,6 +1,9 @@
 $DefaultDir = Convert-Path(pwd)
 $GlobalsDir = "$DefaultDir\globals"
 
+echo $DefaultDir
+echo $GlobalsDir
+
 $ErrorActionPreference = "SilentlyContinue"
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 

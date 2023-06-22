@@ -5,7 +5,7 @@
 alias ls='ls -F --color=auto --show-control-chars'
 alias ll='ls -l'
 
-# specific aliases for a smoother workflow added by hashcat
+# other python package-dependent aliases added by hashcat
 alias activate='source utilities/Scripts/activate'
 alias image='gallery-dl --directory downloads'
 alias music='spotdl --output downloads'
