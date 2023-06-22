@@ -1,15 +1,23 @@
-$DefaultDir = Convert-Path(pwd)
-$GlobalsDir = "$DefaultDir\globals"
-
-echo $DefaultDir
-echo $GlobalsDir
-
 $ErrorActionPreference = "SilentlyContinue"
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+$WarningPreference = "SilentlyContinue"
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 
-mkdir downloads, packages, utilities
-irm get.scoop.sh -outfile "downloads/scoop.ps1"
+$GlobalsDir = "$PSScriptRoot\packages\globals"
+$ScoopFile = "$PSScriptRoot\downloads\scoop.ps1"
+Set-Location -LiteralPath $PSScriptRoot
 
-./downloads/scoop.ps1 -ScoopDir $DefaultDir -ScoopGlobalDir $GlobalsDir
+New-Item downloads, packages, utilities -ItemType Directory
+Invoke-RestMethod get.scoop.sh -OutFile $ScoopFile
+.$ScoopFile -ScoopDir $PSScriptRoot -ScoopGlobalDir $GlobalsDir
 
-scoop status
+scoop bucket add hashcat https://github.com/hashcat26/bucket
+scoop bucket add main ; scoop bucket add extras
+scoop update ; scoop status
+
+scoop install 7zip
+scoop install cmder
+scoop install dark
+scoop install ffmpeg
+scoop install git
+scoop install python
+scoop install vscode
