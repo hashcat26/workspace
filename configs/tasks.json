@@ -1,0 +1,15 @@
+{
+    // TERMINAL
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "powershell: run",
+            "detail": "runs the active ps script in the editor",
+            "type": "shell",
+            "command": "powershell.exe",
+            "args": ["-File", "${file}"],
+            "group": "test",
+            "icon": {"id": "run"}
+        }
+    ]
+}
