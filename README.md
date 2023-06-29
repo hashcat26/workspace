@@ -3,7 +3,7 @@ Workspace setup written in [PowerShell](https://www.powershellgallery.com), a Wi
 
 Downloading the setup:
 ---------------------------------
-To download the setup, run `curl -kO https://raw.githubusercontent.com/hashcat26/workspace/master/setup.ps1`.
+To get the setup, run `curl -kO https://raw.githubusercontent.com/hashcat26/workspace/master/setup.ps1`.
 
 Performing setup:
 ---------------------------------
