@@ -28,7 +28,7 @@
 
 [alias]
 	cl = clone --verbose
-	cm = !git add -A && git commit -m
+	cm = !git add --all && git commit --message
 	lg = log --oneline --graph
 	pl = pull origin
 	ps = push origin
