@@ -2,8 +2,8 @@
 	defaultBranch = master
 
 [user]
-	email = dowaitodoratore@gmail.com
 	name = hashcat26
+	email = dowaitodoratore@gmail.com
 
 [credential]
 	helper = manager
@@ -26,6 +26,16 @@
 [rebase]
 	autosquash = true
 
+[alias]
+	cl = clone --verbose
+	cm = !git add -A && git commit -m
+	lg = log --oneline --graph
+	pl = pull origin
+	ps = push origin
+	rc = rebase --continue
+	ru = remote update
+	st = status --short --branch
+
 [diff "astextplain"]
 	textconv = astextplain
 
@@ -34,11 +44,3 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-
-[alias]
-	cl = clone
-	cm = !git add -A && git commit -m
-	pl = pull
-	ps = push
-	ru = remote update
-	st = status
