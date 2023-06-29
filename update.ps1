@@ -23,3 +23,9 @@ Copy-Item $JsonFile "$AppsDir\vscode\current\data\user-data\User"
 Copy-Item $TaskFile "$AppsDir\vscode\current\data\user-data\User"
 
 Invoke-Expression "git cl https://github.com/hashcat26/workspace.git"
+Invoke-Expression "cp.exe -r workspace/* workspace/.* ."
+Invoke-Expression "rm.exe -drf workspace"
+
+Invoke-Expression "attrib +h .git"
+Invoke-Expression "git ru ; git pl"
+Invoke-Expression "git st ; git lg | head"
