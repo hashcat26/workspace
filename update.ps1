@@ -21,3 +21,5 @@ $TaskFile = "$ConfigsDir\tasks.json"
 Copy-Item $KeyFile "$AppsDir\vscode\current\data\user-data\User"
 Copy-Item $JsonFile "$AppsDir\vscode\current\data\user-data\User"
 Copy-Item $TaskFile "$AppsDir\vscode\current\data\user-data\User"
+
+Invoke-Expression "git cl https://github.com/hashcat26/workspace.git"
