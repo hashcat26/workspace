@@ -34,3 +34,11 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+
+[alias]
+	cl = clone
+	cm = !git add -A && git commit -m
+	pl = pull
+	ps = push
+	ru = remote update
+	st = status
