@@ -6,7 +6,7 @@
             "label": "powershell: run",
             "detail": "runs the active ps script in the editor",
             "type": "shell",
-            "command": "powershell.exe",
+            "command": "powershell",
             "args": ["-File", "${file}"],
             "group": "test",
             "icon": {"id": "run"}
