@@ -27,5 +27,5 @@ Invoke-Expression "sal rm rm.exe -o allscope"
 Invoke-Expression "git cl https://github.com/hashcat26/workspace.git"
 
 Invoke-Expression "cp -r workspace/* workspace/.* ."
-Invoke-Expression "rm -drf workspace"
-Invoke-Expression "attrib +h .git ; git st ; git lg | head"
+Invoke-Expression "rm -drf workspace ; attrib +h .git"
+Invoke-Expression "git ru ; git pl ; git st ; git lg | head"
