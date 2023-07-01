@@ -15,7 +15,7 @@ Invoke-RestMethod get.scoop.sh -OutFile $ScoopFile
 .$ScoopFile -ScoopDir $PackagesDir -ScoopGlobalDir $GlobalsDir
 
 Invoke-Expression "scoop bucket add extras"
-Invoke-Expression "scoop update"
+Invoke-Expression "scoop update ; scoop update -a"
 Invoke-Expression "scoop status"
 
 ForEach ($AppName In $AppList) {
