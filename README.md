@@ -1,9 +1,9 @@
 # Hashcat's Portable Workspace [![Tester](https://github.com/hashcat26/workspace/actions/workflows/tester.yml/badge.svg)](https://github.com/hashcat26/workspace/actions/workflows/tester.yml)
 Workspace setup written in [PowerShell](https://www.powershellgallery.com), a Windows command-line shell and scripting language.
 
-Downloading the setup:
+Getting the requirements:
 ---------------------------------
-To get the setup, run `curl -kO https://raw.githubusercontent.com/hashcat26/workspace/master/setup.ps1`.
+To get the files, run `curl -kOO https://raw.githubusercontent.com/hashcat26/workspace/master/{setup,update}.ps1`.
 
 Performing setup:
 ---------------------------------
