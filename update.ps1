@@ -18,14 +18,14 @@ $KeyFile = "$ConfigsDir\keybindings.json"
 $JsonFile = "$ConfigsDir\settings.json"
 $TaskFile = "$ConfigsDir\tasks.json"
 
-Copy-Item $KeyFile "$AppsDir\vscode\current\data\user-data\User"
-Copy-Item $JsonFile "$AppsDir\vscode\current\data\user-data\User"
-Copy-Item $TaskFile "$AppsDir\vscode\current\data\user-data\User"
+ForEach ($FileName In $KeyFile, $JsonFile, $TaskFile) {
+    Copy-Item $FileName "$AppsDir\vscode\current\data\user-data\User"
+}
 
+Invoke-Expression "sal cp cp.exe -o allscope"
+Invoke-Expression "sal rm rm.exe -o allscope"
 Invoke-Expression "git cl https://github.com/hashcat26/workspace.git"
-Invoke-Expression "cp.exe -r workspace/* workspace/.* ."
-Invoke-Expression "rm.exe -drf workspace"
 
-Invoke-Expression "attrib +h .git"
-Invoke-Expression "git ru ; git pl"
-Invoke-Expression "git st ; git lg | head"
+Invoke-Expression "cp -r workspace/* workspace/.* ."
+Invoke-Expression "rm -drf workspace"
+Invoke-Expression "attrib +h .git ; git st ; git lg | head"
