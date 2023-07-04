@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <key name="Software">
 	<key name="ConEmu">
-		<key name=".Vanilla" modified="2023-06-22 16:04:28" build="221218">
+		<key name=".Vanilla" modified="2023-07-04 17:31:37" build="221218">
 			<value name="ColorTable00" type="dword" data="001e1d1b"/>
 			<value name="ColorTable01" type="dword" data="00d28b26"/>
 			<value name="ColorTable02" type="dword" data="0014b482"/>
@@ -73,7 +73,7 @@
 			<value name="StartType" type="hex" data="02"/>
 			<value name="CmdLine" type="string" data=""/>
 			<value name="StartTasksFile" type="string" data=""/>
-			<value name="StartTasksName" type="string" data="{bash}"/>
+			<value name="StartTasksName" type="string" data="{bsh}"/>
 			<value name="StartFarFolders" type="hex" data="00"/>
 			<value name="StartFarEditors" type="hex" data="00"/>
 			<value name="StoreTaskbarkTasks" type="hex" data="00"/>
@@ -127,7 +127,7 @@
 			<value name="ConWnd Width" type="dword" data="0000004a"/>
 			<value name="ConWnd Height" type="dword" data="00000023"/>
 			<value name="Cascaded" type="hex" data="01"/>
-			<value name="ConWnd X" type="long" data="49"/>
+			<value name="ConWnd X" type="long" data="63"/>
 			<value name="ConWnd Y" type="long" data="0"/>
 			<value name="16bit Height" type="ulong" data="0"/>
 			<value name="AutoSaveSizePos" type="hex" data="01"/>
@@ -483,99 +483,81 @@
 			<value name="DndLKey" type="hex" data="00"/>
 			<value name="DndRKey" type="hex" data="a2"/>
 			<value name="WndDragKey" type="dword" data="00121101"/>
-			<key name="Tasks" modified="2023-05-24 16:47:15" build="221218">
-				<value name="Count" type="long" data="10"/>
-				<key name="Task1" modified="2023-06-26 18:03:11" build="221218">
-					<value name="Name" type="string" data="{bash}"/>
+			<key name="Tasks" modified="2023-07-04 15:08:57" build="221218">
+				<value name="Count" type="long" data="8"/>
+				<key name="Task1" modified="2023-07-04 17:10:21" build="221218">
+					<value name="Name" type="string" data="{*cmd}"/>
 					<value name="GuiArgs" type="string" data='/icon "%CMDER_ROOT%\icons\cmder.ico"'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
-					<value name="Hotkey" type="dword" data="0000114e"/>
-					<value name="Flags" type="dword" data="00000004"/>
-					<value name="Cmd1" type="string" data='bash --login -i -new_console:d:"f:\Users\Dwight\Downloads\Projects\Portable Workspace" '/>
+					<value name="Hotkey" type="dword" data="00000000"/>
+					<value name="Flags" type="dword" data="00000000"/>
+					<value name="Cmd1" type="string" data='*"%SystemRoot%\System32\cmd.exe" /k ""%ConEmuDir%\..\init.bat"" -new_console:d:"%ConEmuDir%\..\..\..\..\..\.."'/>
 				</key>
-				<key name="Task2" modified="2023-05-24 16:55:46" build="221218">
-					<value name="Name" type="string" data="{cmder - admin}"/>
+				<key name="Task2" modified="2023-07-04 17:10:26" build="221218">
+					<value name="Name" type="string" data="{cmd}"/>
 					<value name="GuiArgs" type="string" data='/icon "%CMDER_ROOT%\icons\cmder.ico"'/>
-					<value name="Cmd1" type="string" data='*cmd /k ""%ConEmuDir%\..\init.bat""'/>
+					<value name="Cmd1" type="string" data='"%SystemRoot%\System32\cmd.exe" /k ""%ConEmuDir%\..\init.bat"" -new_console:d:"%ConEmuDir%\..\..\..\..\..\.."'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="Flags" type="dword" data="00000000"/>
 				</key>
-				<key name="Task3" modified="2023-05-24 16:55:46" build="221218">
-					<value name="Name" type="string" data="{cmder}"/>
+				<key name="Task3" modified="2023-07-04 17:30:40" build="221218">
+					<value name="Name" type="string" data="{*psh}"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="GuiArgs" type="string" data='/icon "%CMDER_ROOT%\icons\cmder.ico"'/>
-					<value name="Cmd1" type="string" data='cmd /k ""%ConEmuDir%\..\init.bat""'/>
+					<value name="Cmd1" type="string" data='*"%SystemRoot%\System32\WindowsPowerShell\V1.0\powershell.exe" -ExecutionPolicy Bypass -NoLogo -NoProfile -NoExit -Command "Invoke-Expression &apos;Import-Module &apos;&apos;%ConEmuDir%\..\profile.ps1&apos;&apos;&apos;" -new_console:d:"%ConEmuDir%\..\..\..\..\..\.."'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 					<value name="Flags" type="dword" data="00000000"/>
 				</key>
-				<key name="Task4" modified="2023-06-26 18:02:55" build="221218">
-					<value name="Name" type="string" data="{powershell - admin}"/>
+				<key name="Task4" modified="2023-07-04 17:30:40" build="221218">
+					<value name="Name" type="string" data="{psh}"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="GuiArgs" type="string" data='/icon "%CMDER_ROOT%\icons\cmder.ico"'/>
-					<value name="Cmd1" type="string" data='*PowerShell -ExecutionPolicy Bypass -NoLogo -NoProfile -NoExit -Command "Invoke-Expression &apos;Import-Module &apos;&apos;%ConEmuDir%\..\profile.ps1&apos;&apos;&apos;"'/>
+					<value name="Cmd1" type="string" data='"%SystemRoot%\System32\WindowsPowerShell\V1.0\powershell.exe" -ExecutionPolicy Bypass -NoLogo -NoProfile -NoExit -Command "Invoke-Expression &apos;Import-Module &apos;&apos;%ConEmuDir%\..\profile.ps1&apos;&apos;&apos;" -new_console:d:"%ConEmuDir%\..\..\..\..\..\.."'/>
 					<value name="Cmd2" type="string" data='"%CMDER_ROOT%\vendor\git-for-windows\git-bash.exe"'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 					<value name="Flags" type="dword" data="00000000"/>
 				</key>
-				<key name="Task5" modified="2023-05-24 16:55:46" build="221218">
-					<value name="Name" type="string" data="{powershell}"/>
+				<key name="Task5" modified="2023-07-04 17:24:20" build="221218">
+					<value name="Name" type="string" data="{*wsl}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
-					<value name="GuiArgs" type="string" data='/icon "%CMDER_ROOT%\icons\cmder.ico"'/>
-					<value name="Cmd1" type="string" data='PowerShell -ExecutionPolicy Bypass -NoLogo -NoProfile -NoExit -Command "Invoke-Expression &apos;Import-Module &apos;&apos;%ConEmuDir%\..\profile.ps1&apos;&apos;&apos;"'/>
+					<value name="GuiArgs" type="string" data='-icon "%CMDER_ROOT%\icons\cmder.ico"'/>
+					<value name="Cmd1" type="string" data='*"%SystemRoot%\System32\wsl.exe" -u root -new_console:d:"%ConEmuDir%\..\..\..\..\..\.."'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 				</key>
-				<key name="Task6" modified="2023-05-24 16:55:46" build="221218">
-					<value name="Name" type="string" data="{mintty - admin}"/>
+				<key name="Task6" modified="2023-07-04 17:26:25" build="221218">
+					<value name="Name" type="string" data="{wsl}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
-					<value name="GuiArgs" type="string" data='/icon "%CMDER_ROOT%\icons\cmder.ico"'/>
-					<value name="Cmd1" type="string" data='*"%ConEmuDir%\..\..\..\..\git\current\usr\bin\mintty.exe" /bin/bash -l'/>
+					<value name="GuiArgs" type="string" data='-icon "%CMDER_ROOT%\icons\cmder.ico"'/>
+					<value name="Cmd1" type="string" data='"%SystemRoot%\System32\wsl.exe" -u hashcat -new_console:d:"%ConEmuDir%\..\..\..\..\..\.."'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 					<value name="Cmd2" type="string" data='"%CMDER_ROOT%vendor\git-for-windows\usr\bin\mintty.exe" /bin/bash -l'/>
 				</key>
-				<key name="Task7" modified="2023-05-24 16:55:46" build="221218">
-					<value name="Name" type="string" data="{mintty}"/>
-					<value name="Flags" type="dword" data="00000000"/>
-					<value name="Hotkey" type="dword" data="00000000"/>
-					<value name="GuiArgs" type="string" data='/icon "%CMDER_ROOT%\icons\cmder.ico"'/>
-					<value name="Active" type="long" data="0"/>
-					<value name="Count" type="long" data="1"/>
-					<value name="Cmd1" type="string" data='"%ConEmuDir%\..\..\..\..\git\current\usr\bin\mintty.exe" /bin/bash -l'/>
-				</key>
-				<key name="Task8" modified="2023-05-24 16:55:46" build="221218">
-					<value name="Name" type="string" data="{gitcmd - admin}"/>
-					<value name="Flags" type="dword" data="00000000"/>
-					<value name="Hotkey" type="dword" data="00000000"/>
-					<value name="GuiArgs" type="string" data='/icon "%CMDER_ROOT%\icons\cmder.ico"'/>
-					<value name="Cmd1" type="string" data='*set "PATH=%ConEmuDir%\..\..\..\..\git\current\usr\bin;%PATH%" &amp; "%ConEmuDir%"\..\..\..\..\git\current\git-cmd.exe --no-cd --command=%ConEmuBaseDirShort%\conemu-msys2-64.exe "%ConEmuDir%\..\..\..\..\git\current\usr\bin\bash.exe" --login -i'/>
-					<value name="Active" type="long" data="0"/>
-					<value name="Count" type="long" data="1"/>
-				</key>
-				<key name="Task9" modified="2023-05-24 16:55:46" build="221218">
-					<value name="Name" type="string" data="{gitcmd}"/>
-					<value name="Flags" type="dword" data="00000000"/>
-					<value name="Hotkey" type="dword" data="00000000"/>
-					<value name="GuiArgs" type="string" data='/icon "%CMDER_ROOT%\icons\cmder.ico"'/>
-					<value name="Active" type="long" data="0"/>
-					<value name="Count" type="long" data="1"/>
-					<value name="Cmd1" type="string" data='set "PATH=%ConEmuDir%\..\..\..\..\git\current\usr\bin;%PATH%" &amp; "%ConEmuDir%"\..\..\..\..\git\current\git-cmd.exe --no-cd --command=%ConEmuBaseDirShort%\conemu-msys2-64.exe "%ConEmuDir%\..\..\..\..\git\current\usr\bin\bash.exe" --login -i'/>
-				</key>
-				<key name="Task10" modified="2023-05-24 16:55:51" build="221218">
-					<value name="Name" type="string" data="{wsl - admin}"/>
+				<key name="Task7" modified="2023-07-04 17:29:39" build="221218">
+					<value name="Name" type="string" data="{*bsh}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="GuiArgs" type="string" data='-icon "%CMDER_ROOT%\icons\cmder.ico"'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
-					<value name="Cmd1" type="string" data='set "PATH=%ConEmuBaseDirShort%\wsl;%PATH%" &amp; %ConEmuBaseDirShort%\conemu-cyg-64.exe --wsl -cur_console:pm:/mnt'/>
+					<value name="Cmd1" type="string" data='*"%Git_Install_Root%\Bin\bash.exe" -l -i -new_console:d:"%ConEmuDir%\..\..\..\..\..\.."'/>
+				</key>
+				<key name="Task8" modified="2023-07-04 17:29:39" build="221218">
+					<value name="Name" type="string" data="{bsh}"/>
+					<value name="Flags" type="dword" data="00000000"/>
+					<value name="Hotkey" type="dword" data="0000114e"/>
+					<value name="GuiArgs" type="string" data='-icon "%CMDER_ROOT%\icons\cmder.ico"'/>
+					<value name="Active" type="long" data="0"/>
+					<value name="Count" type="long" data="1"/>
+					<value name="Cmd1" type="string" data='"%Git_Install_Root%\Bin\bash.exe" -l -i -new_console:d:"%ConEmuDir%\..\..\..\..\..\.."'/>
 				</key>
 			</key>
 			<key name="Apps" modified="2018-02-22 06:05:13" build="171109">
