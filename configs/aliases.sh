@@ -3,10 +3,20 @@
 
 # --show-control-chars: help showing Korean or accented characters
 alias ls='ls -F --color=auto --show-control-chars'
+alias la='ls -a'
 alias ll='ls -l'
 
-# other python package-dependent aliases added by hashcat
+# other workspace script-dependent aliases added by hashcat
+alias setup='powershell ./../../../../../../setup.ps1'
+alias update='powershell ./../../../../../../update.ps1'
+alias upgrade='setup && update'
+
+# other scoop application-dependent aliases added by hashcat
+alias fetch='git remote update && git pull'
 alias activate='source utilities/Scripts/activate'
+alias reinstall='scoop uninstall $2 && scoop install $2'
+
+# other python package-dependent aliases added by hashcat
 alias image='gallery-dl --directory downloads/images'
 alias music='spotdl --output downloads/tracks'
 alias video='yt-dlp --paths downloads/videos --merge-output-format mp4'
