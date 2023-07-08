@@ -17,9 +17,9 @@ alias remove='scoop uninstall $1'
 alias activate='source utilities/Scripts/activate'
 
 # other python package-dependent aliases added by hashcat
-alias image='activate && gallery-dl --directory downloads/images && deactivate'
-alias track='activate && spotdl --output downloads/tracks && deactivate'
-alias video='activate && yt-dlp --paths downloads/videos --merge-output-format mp4 && deactivate'
+alias image='activate && gallery-dl --directory downloads/images $1 && deactivate'
+alias track='activate && spotdl --output downloads/tracks $1 && deactivate'
+alias video='activate && yt-dlp --paths downloads/videos --merge-output-format mp4 $1 && deactivate'
 
 case "$TERM" in
 xterm*)
