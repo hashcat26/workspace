@@ -7,8 +7,8 @@ alias la='ls -a'
 alias ll='ls -l'
 
 # other workspace script-dependent aliases added by hashcat
-alias setup='powershell ./../../../../../../setup.ps1'
-alias update='powershell ./../../../../../../update.ps1'
+alias setup='powershell ./setup.ps1'
+alias update='powershell ./update.ps1'
 alias upgrade='setup && update'
 
 # other scoop application-dependent aliases added by hashcat
