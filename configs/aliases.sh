@@ -17,9 +17,9 @@ alias install='scoop install $1'
 alias remove='scoop uninstall $1'
 
 # other python package-dependent aliases added by hashcat
-alias image='gallery-dl --directory downloads/images'
-alias track='spotdl --output downloads/tracks'
-alias video='yt-dlp --paths downloads/videos --merge-output-format mp4'
+alias image='activate && gallery-dl --directory downloads/images && deactivate'
+alias track='activate && spotdl --output downloads/tracks && deactivate'
+alias video='activate && yt-dlp --paths downloads/videos --merge-output-format mp4 && deactivate'
 
 case "$TERM" in
 xterm*)
