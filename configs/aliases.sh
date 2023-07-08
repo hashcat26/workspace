@@ -18,7 +18,7 @@ alias reinstall='scoop uninstall $2 && scoop install $2'
 
 # other python package-dependent aliases added by hashcat
 alias image='gallery-dl --directory downloads/images'
-alias music='spotdl --output downloads/tracks'
+alias track='spotdl --output downloads/tracks'
 alias video='yt-dlp --paths downloads/videos --merge-output-format mp4'
 
 case "$TERM" in
