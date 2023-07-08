@@ -12,9 +12,9 @@ alias update='powershell ./update.ps1'
 alias upgrade='setup && update'
 
 # other scoop application-dependent aliases added by hashcat
-alias activate='source utilities/Scripts/activate'
 alias install='scoop install $1'
 alias remove='scoop uninstall $1'
+alias activate='source utilities/Scripts/activate'
 
 # other python package-dependent aliases added by hashcat
 alias image='activate && gallery-dl --directory downloads/images && deactivate'
