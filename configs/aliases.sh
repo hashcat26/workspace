@@ -7,9 +7,9 @@ alias ll='ls -l'
 
 # other python package-dependent aliases added by hashcat
 alias activate='source utilities/Scripts/activate'
-alias image='gallery-dl --directory downloads'
-alias music='spotdl --output downloads'
-alias video='yt-dlp --paths downloads --merge-output-format mp4'
+alias image='gallery-dl --directory downloads/images'
+alias music='spotdl --output downloads/tracks'
+alias video='yt-dlp --paths downloads/videos --merge-output-format mp4'
 
 case "$TERM" in
 xterm*)
