@@ -12,14 +12,14 @@ alias update='powershell ./update.ps1'
 alias upgrade='setup && update'
 
 # other scoop application-dependent aliases added by hashcat
-alias install='scoop install $1'
-alias remove='scoop uninstall $1'
+alias install='scoop install'
+alias remove='scoop uninstall'
 alias activate='source utilities/Scripts/activate'
 
 # other python package-dependent aliases added by hashcat
 alias image='activate && gallery-dl --directory downloads/images'
-alias track='activate && spotdl --output downloads/tracks'
-alias video='activate && yt-dlp --paths downloads/videos --merge-output-format mp4'
+alias track='activate && spotdl --output downloads/tracks $1 && deactivate'
+alias video='activate && yt-dlp --paths downloads/videos --merge-output-format mp4 $1 && deactivate'
 
 case "$TERM" in
 xterm*)
