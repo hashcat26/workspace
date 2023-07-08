@@ -7,7 +7,7 @@ $GlobalsDir = "$PSScriptRoot\packages\globals"
 Set-Location -LiteralPath $PSScriptRoot
 
 $ScoopFile = "downloads\scoop.ps1"
-$AppList = "cmder", "ffmpeg", "git", "python" ,"vscode"
+$AppList = "cmder", "ffmpeg", "git", "python", "qemu", "vscode"
 $PackageList = "gallery-dl", "spotdl", "yt-dlp"
 
 New-Item downloads, packages, utilities -ItemType Directory
