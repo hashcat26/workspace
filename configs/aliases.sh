@@ -14,7 +14,7 @@ alias upgrade='setup && update'
 # other scoop application-dependent aliases added by hashcat
 alias fetch='git remote update && git pull'
 alias activate='source utilities/Scripts/activate'
-alias reinstall='scoop uninstall $3 && scoop install $1'
+alias reinstall='scoop uninstall $2 && scoop install $1'
 
 # other python package-dependent aliases added by hashcat
 alias image='gallery-dl --directory downloads/images'
