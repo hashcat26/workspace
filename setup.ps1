@@ -19,7 +19,7 @@ Invoke-Expression "scoop bucket add hashcat $BucketRepo"
 Invoke-Expression "scoop bucket add extras ; scoop status"
 
 ForEach ($App In $AppList) {
-    Invoke-Expression "scoop install hashcat/$App"
+    Invoke-Expression "scoop install $App"
 }
 
 $ActivateFile = ".\utilities\Scripts\activate.ps1"
