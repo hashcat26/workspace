@@ -2,30 +2,30 @@ $ErrorActionPreference = "SilentlyContinue"
 $WarningPreference = "SilentlyContinue"
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 
-$AppsDir = "$PSScriptRoot\packages\apps"
+$WorkspaceRepo = "https://github.com/hashcat26/workspace.git"
 $ConfigsDir = "$PSScriptRoot\configs"
 Set-Location -LiteralPath $PSScriptRoot
+
+Invoke-Expression "scoop alias add sp 'scoop prefix $Args[0]'"
+Invoke-Expression "scoop update ; scoop update -a"
+Invoke-Expression "git clone -v $WorkspaceRepo"
 
 $AliasFile = "$ConfigsDir\aliases.sh"
 $XmlFile = "$ConfigsDir\ConEmu.xml"
 $ConfigFile = "$ConfigsDir\gitconfig"
 
-Copy-Item $AliasFile "$AppsDir\git\current\etc\profile.d"
-Copy-Item $XmlFile "$AppsDir\cmder\current\vendor\conemu-maximus5"
-Copy-Item $ConfigFile "$AppsDir\git\current\etc"
+Copy-Item $AliasFile "$(scoop sp git)\etc\profile.d"
+Copy-Item $XmlFile "$(scoop sp cmder)\vendor\conemu-maximus5"
+Copy-Item $ConfigFile "$(scoop sp git)\etc"
 
 $KeyFile = "$ConfigsDir\keybindings.json"
 $JsonFile = "$ConfigsDir\settings.json"
 $TaskFile = "$ConfigsDir\tasks.json"
 
-ForEach ($FileName In $KeyFile, $JsonFile, $TaskFile) {
-    Copy-Item $FileName "$AppsDir\vscode\current\data\user-data\User"
+ForEach ($File In $KeyFile, $JsonFile, $TaskFile) {
+    Copy-Item $File "$(scoop sp vscode)\data\user-data\User"
 }
 
-Invoke-Expression "sal cp cp.exe -o allscope"
-Invoke-Expression "sal rm rm.exe -o allscope"
-Invoke-Expression "git cl https://github.com/hashcat26/workspace.git"
-
-Invoke-Expression "cp -r workspace/* workspace/.* ."
-Invoke-Expression "rm -drf workspace ; attrib +h .git"
-Invoke-Expression "git ru ; git pl ; git st ; git lg | head"
+Invoke-Expression "cp.exe -r workspace/* workspace/.* ."
+Invoke-Expression "rm.exe -drf workspace ; attrib +h .git"
+Invoke-Expression "scoop alias rm sp ; git up ; git st"

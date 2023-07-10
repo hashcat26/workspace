@@ -6,7 +6,7 @@ $PackagesDir = "$PSScriptRoot\packages"
 $GlobalsDir = "$PSScriptRoot\packages\globals"
 Set-Location -LiteralPath $PSScriptRoot
 
-$ScoopFile = "downloads\scoop.ps1"
+$ScoopFile = "downloads\scripts\scoop.ps1"
 $AppList = "cmder", "ffmpeg", "git", "python", "qemu", "vscode"
 $PackageList = "gallery-dl", "spotdl", "yt-dlp"
 
@@ -14,18 +14,18 @@ New-Item downloads, packages, utilities -ItemType Directory
 Invoke-RestMethod get.scoop.sh -OutFile $ScoopFile
 .$ScoopFile -ScoopDir $PackagesDir -ScoopGlobalDir $GlobalsDir
 
-Invoke-Expression "scoop bucket add extras"
-Invoke-Expression "scoop update ; scoop update -a"
-Invoke-Expression "scoop status"
+$BucketRepo = "https://github.com/hashcat26/bucket"
+Invoke-Expression "scoop bucket add hashcat $BucketRepo"
+Invoke-Expression "scoop bucket add extras ; scoop status"
 
-ForEach ($AppName In $AppList) {
-    Invoke-Expression "scoop install $AppName"
+ForEach ($App In $AppList) {
+    Invoke-Expression "scoop install hashcat/$App"
 }
 
+$ActivateFile = ".\utilities\Scripts\activate.ps1"
 Invoke-Expression "pip install virtualenv"
-Invoke-Expression "virtualenv utilities"
-Invoke-Expression ". utilities\Scripts\activate"
+Invoke-Expression "virtualenv utilities ; . $ActivateFile"
 
-ForEach ($PackageName In $PackageList) {
-    Invoke-Expression "pip install $PackageName"
+ForEach ($Package In $PackageList) {
+    Invoke-Expression "pip install $Package"
 }
