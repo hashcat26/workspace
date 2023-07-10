@@ -6,20 +6,25 @@ alias ls='ls -F --color=auto --show-control-chars'
 alias la='ls -a'
 alias ll='ls -l'
 
+# other scoop application-dependent aliases added by hashcat
+alias install='scoop install "$@"'
+alias remove='scoop uninstall "$@"'
+alias activate='source utilities/Scripts/activate'
+
+# other python package-dependent aliases added by hashcat
+alias img='gallery-dl --directory downloads/images'
+alias trk='spotdl --output downloads/tracks'
+alias vid='yt-dlp --paths downloads/videos --merge-output-format mp4'
+
 # other workspace script-dependent aliases added by hashcat
 alias setup='powershell ./setup.ps1'
 alias update='powershell ./update.ps1'
 alias upgrade='setup && update'
 
-# other scoop application-dependent aliases added by hashcat
-alias install='scoop install'
-alias remove='scoop uninstall'
-alias activate='source utilities/Scripts/activate'
-
-# other python package-dependent aliases added by hashcat
-alias image='activate && gallery-dl --directory downloads/images'
-alias track='activate && spotdl --output downloads/tracks'
-alias video='activate && yt-dlp --paths downloads/videos --merge-output-format mp4'
+# other terminal helper-dependent aliases added by hashcat
+alias image='dl(){ activate; img "$1"; deactivate; unset dl; }; dl'
+alias track='dl(){ activate; trk "$1"; deactivate; unset dl; }; dl'
+alias video='dl(){ activate; vid "$1"; deactivate; unset dl; }; dl'
 
 case "$TERM" in
 xterm*)
