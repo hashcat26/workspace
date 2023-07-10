@@ -35,6 +35,7 @@
 	rc = rebase --continue
 	ru = remote update
 	st = status --short --branch
+	up = !git remote update && git pull origin
 
 [diff "astextplain"]
 	textconv = astextplain
