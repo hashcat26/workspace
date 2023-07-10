@@ -6,7 +6,7 @@ $WorkspaceRepo = "https://github.com/hashcat26/workspace.git"
 $ConfigsDir = "$PSScriptRoot\configs"
 Set-Location -LiteralPath $PSScriptRoot
 
-Invoke-Expression "scoop alias add sp 'scoop prefix $Args[0]'"
+Invoke-Expression "scoop alias add sp 'scoop prefix $args[0]'"
 Invoke-Expression "scoop update ; scoop update -a"
 Invoke-Expression "git clone -v $WorkspaceRepo"
 
