@@ -7,8 +7,8 @@ $ConfigsDir = "$PSScriptRoot\configs"
 Set-Location -LiteralPath $PSScriptRoot
 
 Invoke-Expression "scoop update ; scoop update -a"
-Invoke-Expression "cd utilities ; pipenv shell ; pipenv update"
-Invoke-Expression "cd .. ; git clone -v $WorkspaceRepo"
+Invoke-Expression "cd utilities ; pipenv update ; cd .."
+Invoke-Expression "git clone -v $WorkspaceRepo"
 
 $AliasFile = "$ConfigsDir\aliases.sh"
 $XmlFile = "$ConfigsDir\ConEmu.xml"
