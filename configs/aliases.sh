@@ -22,9 +22,9 @@ alias update='powershell ./update.ps1'
 alias upgrade='setup && update'
 
 # other terminal helper-dependent aliases added by hashcat
-alias image='dl(){ cd utilities; img "$1"; unset dl; }; dl'
-alias track='dl(){ cd utilities; trk "$1"; unset dl; }; dl'
-alias video='dl(){ cd utilities; vid "$1"; unset dl; }; dl'
+alias image='dl(){ cd utilities; img "$1"; cd ..; unset dl; }; dl'
+alias track='dl(){ cd utilities; trk "$1"; cd ..; unset dl; }; dl'
+alias video='dl(){ cd utilities; vid "$1"; cd ..; unset dl; }; dl'
 
 case "$TERM" in
 xterm*)
