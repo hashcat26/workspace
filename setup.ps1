@@ -22,10 +22,10 @@ ForEach ($App In $AppList) {
     Invoke-Expression "scoop install $App"
 }
 
-$ActivateFile = ".\utilities\Scripts\activate.ps1"
-Invoke-Expression "pip install virtualenv"
-Invoke-Expression "virtualenv utilities ; . $ActivateFile"
+$UpgradeCmd = "python -m pip install -U pip pipenv setuptools"
+Invoke-Expression "pip install pipenv ; $UpgradeCmd"
+Invoke-Expression "md utilities\.venv ; cd utilities"
 
 ForEach ($Package In $PackageList) {
-    Invoke-Expression "pip install $Package"
+    Invoke-Expression "pipenv install $Package"
 }
