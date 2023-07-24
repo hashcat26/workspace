@@ -24,7 +24,7 @@ ForEach ($App In $AppList) {
 
 $UpgradeCmd = "python -m pip install -U pip pipenv setuptools"
 Invoke-Expression "pip install pipenv ; $UpgradeCmd"
-Invoke-Expression "md -p utilities\.venv ; cd utilities"
+Invoke-Expression "md -force utilities\.venv ; cd utilities"
 
 ForEach ($Package In $PackageList) {
     Invoke-Expression "pipenv install $Package"
