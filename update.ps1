@@ -26,6 +26,6 @@ ForEach ($File In $KeyFile, $JsonFile, $TaskFile) {
     Copy-Item $File "$(scoop prefix vscode)\data\user-data\User"
 }
 
-Invoke-Expression "cp.exe -r workspace/* workspace/.* ."
-Invoke-Expression "rm.exe -drf workspace ; attrib +h .git"
+Invoke-Expression "cp -r -force workspace/* ."
+Invoke-Expression "rm -r -force workspace ; attrib +h .git"
 Invoke-Expression "git up ; git st ; git lg | head"
