@@ -1,5 +1,5 @@
 # workspace [![Tester](https://github.com/hashcat26/workspace/actions/workflows/tester.yml/badge.svg)](https://github.com/hashcat26/workspace/actions/workflows/tester.yml)
-Portable workspace generator and updater written in [PowerShell](https://www.powershellgallery.com).
+Portable coding workspace generator and updater written in [PowerShell](https://www.powershellgallery.com).
 
 Getting the files:
 ---------------------------------
