@@ -1,5 +1,5 @@
 # Hashcat's Portable Workspace [![Tester](https://github.com/hashcat26/workspace/actions/workflows/tester.yml/badge.svg)](https://github.com/hashcat26/workspace/actions/workflows/tester.yml)
-Workspace setup written in [PowerShell](https://www.powershellgallery.com), a Windows command-line shell and scripting language.
+Workspace generator written in [PowerShell](https://www.powershellgallery.com), the Windows shell scripting language.
 
 Getting the files:
 ---------------------------------
