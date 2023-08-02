@@ -7,4 +7,4 @@ To get the files, run `curl -kOO https://raw.githubusercontent.com/hashcat26/wor
 
 Initializing workspace:
 ---------------------------------
-To perform workspace setup and update, do `powershell ./setup.ps1 && powershell ./update.ps1`.
+To perform workspace initialization, do `powershell ./setup.ps1 && powershell ./update.ps1`.
