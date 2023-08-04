@@ -86,5 +86,10 @@
     // NOTEBOOK
     "notebook.consolidatedRunButton": true,
     "notebook.dragAndDropEnabled": false,
-    "notebook.lineNumbers": "on"
+    "notebook.lineNumbers": "on",
+
+    // OTHERS
+    "extensions.ignoreRecommendations": true,
+    "telemetry.telemetryLevel": "off",
+    "update.showReleaseNotes": false
 }
