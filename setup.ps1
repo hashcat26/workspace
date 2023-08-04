@@ -10,7 +10,7 @@ $ScoopFile = "downloads\scripts\scoop.ps1"
 $AppList = "cmder", "ffmpeg", "git", "python", "qemu", "vscode"
 $PackageList = "gallery-dl", "spotdl", "yt-dlp"
 
-New-Item downloads, packages, utilities -ItemType Directory
+New-Item downloads\scripts, packages, utilities -ItemType Dir
 Invoke-RestMethod get.scoop.sh -OutFile $ScoopFile
 .$ScoopFile -ScoopDir $PackagesDir -ScoopGlobalDir $GlobalsDir
 
