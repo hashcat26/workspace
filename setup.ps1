@@ -22,7 +22,7 @@ ForEach ($App In $AppList) {
     Invoke-Expression "scoop install hashcat/$App"
 }
 
-Invoke-Expression "pip install -U pip setuptools"
+Invoke-Expression "python -m pip install -U pip setuptools"
 Invoke-Expression "pip install pipenv ; pip install -U pipenv"
 Invoke-Expression "cd utilities ; md -f .venv | out-null"
 
