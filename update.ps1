@@ -28,4 +28,4 @@ ForEach ($File In $KeyFile, $JsonFile, $TaskFile) {
 
 Invoke-Expression "cp -r -force workspace/* ."
 Invoke-Expression "rm -r -force workspace ; attrib +h .git"
-Invoke-Expression "git remote update ; git pull origin"
+Invoke-Expression "git remote update ; git pull ; git status"
