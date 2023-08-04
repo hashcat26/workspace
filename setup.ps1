@@ -19,7 +19,7 @@ Invoke-Expression "scoop bucket add hashcat $BucketRepo"
 Invoke-Expression "scoop bucket add extras ; scoop status"
 
 ForEach ($App In $AppList) {
-    Invoke-Expression "scoop install $App"
+    Invoke-Expression "scoop install hashcat/$App"
 }
 
 $UpgradeCmd = "python -m pip install -U pip pipenv setuptools"
