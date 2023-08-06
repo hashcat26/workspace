@@ -3,27 +3,27 @@ $WarningPreference = "SilentlyContinue"
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 $WorkspaceRepo = "https://github.com/hashcat26/workspace.git"
-$ConfigsDir = "$PSScriptRoot\configs"
+$PersistsDir = "$PSScriptRoot\packages\persist"
 Set-Location -LiteralPath $PSScriptRoot
 
 Invoke-Expression "scoop update ; scoop update -a"
 Invoke-Expression "cd utilities ; pipenv update ; cd .."
 Invoke-Expression "git clone -v $WorkspaceRepo"
 
-$AliasFile = "$ConfigsDir\aliases.sh"
-$XmlFile = "$ConfigsDir\ConEmu.xml"
-$ConfigFile = "$ConfigsDir\gitconfig"
+$AliasFile = "workspace\configs\aliases.sh"
+$TermFile = "workspace\configs\ConEmu.xml"
+$ConfigFile = "workspace\configs\gitconfig"
 
-Copy-Item $AliasFile "$(scoop prefix git)\etc\profile.d"
-Copy-Item $XmlFile "$(scoop prefix cmder)\vendor\conemu-maximus5"
-Copy-Item $ConfigFile "$(scoop prefix git)\etc"
+Copy-Item $AliasFile "$PersistsDir\git\etc\profile.d"
+Copy-Item $TermFile "$PersistsDir\cmder\vendor\conemu-maximus5"
+Copy-Item $ConfigFile "$PersistsDir\git\etc"
 
-$KeyFile = "$ConfigsDir\keybindings.json"
-$JsonFile = "$ConfigsDir\settings.json"
-$TaskFile = "$ConfigsDir\tasks.json"
+$KeyFile = "workspace\configs\keybindings.json"
+$OptFile = "workspace\configs\settings.json"
+$TaskFile = "workspace\configs\tasks.json"
 
-ForEach ($File In $KeyFile, $JsonFile, $TaskFile) {
-    Copy-Item $File "$(scoop prefix vscode)\data\user-data\User"
+ForEach ($File In $KeyFile, $OptFile, $TaskFile) {
+    Copy-Item $File "$PersistsDir\vscode\data\user-data\User"
 }
 
 Invoke-Expression "cp -r -force workspace/* ."
