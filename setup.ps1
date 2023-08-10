@@ -20,7 +20,7 @@ Invoke-Expression "scoop uninstall -p 7zip git" *> $Null
 
 ForEach ($App In $AppList) {
     Invoke-Expression "scoop install hashcat/$App"
-} Invoke-Expression "scoop install hashcat/7zip hashcat/git"
+} Invoke-Expression "scoop install hashcat/7zip" *> $Null
 
 Invoke-Expression "python -m pip install -U setuptools"
 Invoke-Expression "python -m pip install -U pip pipenv"
@@ -28,4 +28,4 @@ Invoke-Expression "cd utilities ; md -f .venv" *> $Null
 
 ForEach ($Package In $PackageList) {
     Invoke-Expression "pipenv install $Package"
-} Invoke-Expression "cd .. ; scoop status"
+} Invoke-Expression "cd .. ; scoop status" *> $Null
