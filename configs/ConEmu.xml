@@ -492,12 +492,12 @@
 					<value name="Count" type="long" data="1"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="Flags" type="dword" data="00000000"/>
-					<value name="Cmd1" type="string" data='*"%SystemRoot%\System32\cmd.exe" /k ""%ConEmuDir%\..\init.bat"" -new_console:d:"%ConEmuDir%\..\..\..\..\..\..\.."'/>
+					<value name="Cmd1" type="string" data='*"%SystemRoot%\System32\cmd.exe" /k ""%ConEmuDir%\..\init.bat"" -new_console:d:"%ConEmuDir%\..\..\..\..\..\.."'/>
 				</key>
 				<key name="Task2" modified="2023-08-04 18:16:35" build="230724">
 					<value name="Name" type="string" data="{cmd}"/>
 					<value name="GuiArgs" type="string" data='/icon "%CMDER_ROOT%\icons\cmder.ico"'/>
-					<value name="Cmd1" type="string" data='"%SystemRoot%\System32\cmd.exe" /k ""%ConEmuDir%\..\init.bat"" -new_console:d:"%ConEmuDir%\..\..\..\..\..\..\.."'/>
+					<value name="Cmd1" type="string" data='"%SystemRoot%\System32\cmd.exe" /k ""%ConEmuDir%\..\init.bat"" -new_console:d:"%ConEmuDir%\..\..\..\..\..\.."'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -507,7 +507,7 @@
 					<value name="Name" type="string" data="{*psh}"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="GuiArgs" type="string" data='/icon "%CMDER_ROOT%\icons\cmder.ico"'/>
-					<value name="Cmd1" type="string" data='*"%SystemRoot%\System32\WindowsPowerShell\V1.0\powershell.exe" -ExecutionPolicy Bypass -NoLogo -NoProfile -NoExit -Command "Invoke-Expression &apos;Import-Module &apos;&apos;%ConEmuDir%\..\profile.ps1&apos;&apos;&apos;" -new_console:d:"%ConEmuDir%\..\..\..\..\..\..\.."'/>
+					<value name="Cmd1" type="string" data='*"%SystemRoot%\System32\WindowsPowerShell\V1.0\powershell.exe" -ExecutionPolicy Bypass -NoLogo -NoProfile -NoExit -Command "Invoke-Expression &apos;Import-Module &apos;&apos;%ConEmuDir%\..\profile.ps1&apos;&apos;&apos;" -new_console:d:"%ConEmuDir%\..\..\..\..\..\.."'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 					<value name="Flags" type="dword" data="00000000"/>
@@ -516,7 +516,7 @@
 					<value name="Name" type="string" data="{psh}"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="GuiArgs" type="string" data='/icon "%CMDER_ROOT%\icons\cmder.ico"'/>
-					<value name="Cmd1" type="string" data='"%SystemRoot%\System32\WindowsPowerShell\V1.0\powershell.exe" -ExecutionPolicy Bypass -NoLogo -NoProfile -NoExit -Command "Invoke-Expression &apos;Import-Module &apos;&apos;%ConEmuDir%\..\profile.ps1&apos;&apos;&apos;" -new_console:d:"%ConEmuDir%\..\..\..\..\..\..\.."'/>
+					<value name="Cmd1" type="string" data='"%SystemRoot%\System32\WindowsPowerShell\V1.0\powershell.exe" -ExecutionPolicy Bypass -NoLogo -NoProfile -NoExit -Command "Invoke-Expression &apos;Import-Module &apos;&apos;%ConEmuDir%\..\profile.ps1&apos;&apos;&apos;" -new_console:d:"%ConEmuDir%\..\..\..\..\..\.."'/>
 					<value name="Cmd2" type="string" data='"%CMDER_ROOT%\vendor\git-for-windows\git-bash.exe"'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
@@ -527,7 +527,7 @@
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="GuiArgs" type="string" data='-icon "%CMDER_ROOT%\icons\cmder.ico"'/>
-					<value name="Cmd1" type="string" data='*"%SystemRoot%\System32\wsl.exe" -u root -new_console:d:"%ConEmuDir%\..\..\..\..\..\..\.."'/>
+					<value name="Cmd1" type="string" data='*"%SystemRoot%\System32\wsl.exe" -u root -new_console:d:"%ConEmuDir%\..\..\..\..\..\.."'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 				</key>
@@ -536,7 +536,7 @@
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="GuiArgs" type="string" data='-icon "%CMDER_ROOT%\icons\cmder.ico"'/>
-					<value name="Cmd1" type="string" data='"%SystemRoot%\System32\wsl.exe" -u hashcat -new_console:d:"%ConEmuDir%\..\..\..\..\..\..\.."'/>
+					<value name="Cmd1" type="string" data='"%SystemRoot%\System32\wsl.exe" -u hashcat -new_console:d:"%ConEmuDir%\..\..\..\..\..\.."'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 					<value name="Cmd2" type="string" data='"%CMDER_ROOT%vendor\git-for-windows\usr\bin\mintty.exe" /bin/bash -l'/>
@@ -548,7 +548,7 @@
 					<value name="GuiArgs" type="string" data='-icon "%CMDER_ROOT%\icons\cmder.ico"'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
-					<value name="Cmd1" type="string" data='*"%Git_Install_Root%\Bin\bash.exe" -l -i -new_console:d:"%ConEmuDir%\..\..\..\..\..\..\.."'/>
+					<value name="Cmd1" type="string" data='*"%Git_Install_Root%\Bin\bash.exe" -l -i -new_console:d:"%ConEmuDir%\..\..\..\..\..\.."'/>
 				</key>
 				<key name="Task8" modified="2023-08-04 18:17:33" build="230724">
 					<value name="Name" type="string" data="{bsh}"/>
@@ -557,7 +557,7 @@
 					<value name="GuiArgs" type="string" data='-icon "%CMDER_ROOT%\icons\cmder.ico"'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
-					<value name="Cmd1" type="string" data='"%Git_Install_Root%\Bin\bash.exe" -l -i -new_console:d:"%ConEmuDir%\..\..\..\..\..\..\.."'/>
+					<value name="Cmd1" type="string" data='"%Git_Install_Root%\Bin\bash.exe" -l -i -new_console:d:"%ConEmuDir%\..\..\..\..\..\.."'/>
 				</key>
 			</key>
 			<key name="Apps" modified="2018-02-22 06:05:13" build="171109">
@@ -908,4 +908,3 @@
 		</key>
 	</key>
 </key>
-

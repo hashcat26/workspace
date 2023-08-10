@@ -8,8 +8,8 @@ alias ll='ls -l'
 
 # other scoop application-dependent aliases added by hashcat
 alias install='scoop install "$@"'
-alias remove='scoop uninstall "$@"'
-alias cleanup='scoop cache rm -a ; scoop cleanup -a'
+alias remove='scoop uninstall -p "$@"'
+alias cleanup='scoop cache rm -a'
 
 # other python package-dependent aliases added by hashcat
 alias img='pipenv run gallery-dl --directory ../downloads/images'
@@ -17,14 +17,14 @@ alias trk='pipenv run spotdl --output ../downloads/tracks'
 alias vid='pipenv run yt-dlp --paths ../downloads/videos --merge-output-format mp4'
 
 # other workspace script-dependent aliases added by hashcat
-alias setup='powershell ./workspace/setup.ps1'
-alias update='powershell ./workspace/update.ps1'
+alias setup='powershell ./setup.ps1'
+alias update='powershell ./update.ps1'
 alias upgrade='setup && update && cleanup'
 
 # other terminal helper-dependent aliases added by hashcat
-alias image='dl(){ cd workspace/utilities; img "$1"; cd ../..; unset dl; }; dl'
-alias track='dl(){ cd workspace/utilities; trk "$1"; cd ../..; unset dl; }; dl'
-alias video='dl(){ cd workspace/utilities; vid "$1"; cd ../..; unset dl; }; dl'
+alias image='dl(){ cd utilities; img "$1"; cd ..; unset dl; }; dl'
+alias track='dl(){ cd utilities; trk "$1"; cd ..; unset dl; }; dl'
+alias video='dl(){ cd utilities; vid "$1"; cd ..; unset dl; }; dl'
 
 case "$TERM" in
 xterm*)

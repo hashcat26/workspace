@@ -51,7 +51,7 @@
     "window.commandCenter": false,
     "window.menuBarVisibility": "compact",
     "window.newWindowDimensions": "maximized",
-    "window.title": "${folderName} - ${activeEditorMedium}",
+    "window.title": "${activeEditorMedium}",
 
     // EXPLORER
     "explorer.autoReveal": false,
