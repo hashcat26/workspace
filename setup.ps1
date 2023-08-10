@@ -14,13 +14,13 @@ New-Item downloads\scripts, packages, utilities -ItemType Dir
 Invoke-RestMethod get.scoop.sh -OutFile $ScoopFile
 .$ScoopFile -ScoopDir $PackagesDir
 
-Invoke-Expression "scoop install git ; scoop bucket rm main"
+Invoke-Expression "scoop install git ; scoop bucket add extras"
 Invoke-Expression "scoop bucket add hashcat $BucketRepo"
 Invoke-Expression "scoop uninstall -p 7zip git" *> $Null
 
 ForEach ($App In $AppList) {
-    Invoke-Expression "scoop install $App"
-} Invoke-Expression "scoop install 7zip git" *> $Null
+    Invoke-Expression "scoop install hashcat/$App"
+} Invoke-Expression "scoop install hashcat/7zip hashcat/git"
 
 Invoke-Expression "python -m pip install -U setuptools"
 Invoke-Expression "python -m pip install -U pip pipenv"
@@ -28,4 +28,4 @@ Invoke-Expression "cd utilities ; md -f .venv" *> $Null
 
 ForEach ($Package In $PackageList) {
     Invoke-Expression "pipenv install $Package"
-} Invoke-Expression "cd .. ; scoop status" *> $Null
+} Invoke-Expression "cd .. ; scoop status"

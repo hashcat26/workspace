@@ -8,7 +8,7 @@ Set-Location -LiteralPath $PSScriptRoot
 
 Invoke-Expression "scoop update ; scoop update -a"
 Invoke-Expression "cd utilities ; pipenv update ; cd .."
-Invoke-Expression "git clone -v $WorkspaceRepo" *> $Null
+Invoke-Expression "git clone -v $WorkspaceRepo"
 
 $AliasFile = "workspace\configs\aliases.sh"
 $TermFile = "workspace\configs\ConEmu.xml"
@@ -28,4 +28,4 @@ ForEach ($File In $KeyFile, $OptFile, $TaskFile) {
 
 Invoke-Expression "cp -r -force workspace/* ."
 Invoke-Expression "rm -r -force workspace ; attrib +h .git"
-Invoke-Expression "git remote update ; git pull" *> $Null
+Invoke-Expression "git remote update ; git pull"
