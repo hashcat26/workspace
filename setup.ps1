@@ -16,16 +16,16 @@ Invoke-RestMethod get.scoop.sh -OutFile $ScoopFile
 
 Invoke-Expression "scoop install git ; scoop bucket rm main"
 Invoke-Expression "scoop bucket add hashcat $BucketRepo"
-Invoke-Expression "scoop uninstall 7zip git ; scoop status"
+Invoke-Expression "scoop uninstall 7zip git" *> $Null
 
 ForEach ($App In $AppList) {
-    Invoke-Expression "scoop install hashcat/$App"
-}
+    Invoke-Expression "scoop install $App"
+} Invoke-Expression "scoop install 7zip git" *> $Null
 
 Invoke-Expression "python -m pip install -U setuptools"
 Invoke-Expression "python -m pip install -U pip pipenv"
-Invoke-Expression "cd utilities ; md -f .venv | out-null"
+Invoke-Expression "cd utilities ; md -f .venv" *> $Null
 
 ForEach ($Package In $PackageList) {
     Invoke-Expression "pipenv install $Package"
-}
+} Invoke-Expression "scoop status" *> $Null

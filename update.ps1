@@ -8,7 +8,7 @@ Set-Location -LiteralPath $PSScriptRoot
 
 Invoke-Expression "scoop update ; scoop update -a"
 Invoke-Expression "cd utilities ; pipenv update ; cd .."
-Invoke-Expression "git clone -v $WorkspaceRepo"
+Invoke-Expression "git clone -v $WorkspaceRepo" *> $Null
 
 $AliasFile = "workspace\configs\aliases.sh"
 $TermFile = "workspace\configs\ConEmu.xml"
@@ -24,8 +24,8 @@ $TaskFile = "workspace\configs\tasks.json"
 
 ForEach ($File In $KeyFile, $OptFile, $TaskFile) {
     Copy-Item $File "$PersistsDir\vscode\data\user-data\User"
-}
+} Invoke-Expression "scoop cleanup -a" *> $Null
 
 Invoke-Expression "cp -r -force workspace/* ."
 Invoke-Expression "rm -r -force workspace ; attrib +h .git"
-Invoke-Expression "git remote update ; git pull ; git status"
+Invoke-Expression "git remote update ; git pull" *> $Null
