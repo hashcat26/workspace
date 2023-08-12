@@ -11,20 +11,24 @@ alias install='scoop install "$@"'
 alias remove='scoop uninstall -p "$@"'
 alias cleanup='scoop cache rm -a'
 
-# other python package-dependent aliases added by hashcat
-alias img='pipenv run gallery-dl --directory ../downloads/images'
-alias trk='pipenv run spotdl --output ../downloads/tracks'
-alias vid='pipenv run yt-dlp --paths ../downloads/videos --merge-output-format mp4'
-
 # other workspace script-dependent aliases added by hashcat
 alias setup='powershell ./setup.ps1'
 alias update='powershell ./update.ps1'
-alias upgrade='setup && update'
+alias upgrade='setup; update'
+
+# other python package-dependent aliases added by hashcat
+alias img='cd utilities; pipenv run gallery-dl --directory ../downloads/images'
+alias trk='cd utilities; pipenv run spotdl --output ../downloads/tracks'
+alias vid='cd utilities; pipenv run yt-dlp --merge mp4 --paths ../downloads/videos'
 
 # other terminal helper-dependent aliases added by hashcat
-alias image='dl(){ cd utilities; img "$1"; cd ..; unset dl; }; dl'
-alias track='dl(){ cd utilities; trk "$1"; cd ..; unset dl; }; dl'
-alias video='dl(){ cd utilities; vid "$1"; cd ..; unset dl; }; dl'
+alias image='dl(){ img "$1"; cd ..; unset dl; }; dl'
+alias track='dl(){ trk "$1"; cd ..; unset dl; }; dl'
+alias video='dl(){ vid "$1"; cd ..; unset dl; }; dl'
+
+# other ffmpeg binary-dependent aliases added by hashcat
+alias view='pl(){ img "$1"; cat ../downloads/images/*.jpg | ffmpeg -i - -r 1/3 -f mp4 - 2>/dev/null | ffplay -autoexit -i -; cd ..; unset pl; }; pl'
+alias watch='pl(){ cd utilities; pipenv run yt-dlp "$1" -f bv+ba -o - 2>/dev/null | ffplay -autoexit -i -; cd ..; unset pl; }; pl'
 
 case "$TERM" in
 xterm*)

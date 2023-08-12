@@ -39,6 +39,7 @@
     "workbench.list.smoothScrolling": true,
     "workbench.panel.opensMaximized": "never",
     "workbench.reduceMotion": "off",
+    "workbench.startupEditor": "none",
 
     // ZENMODE
     "zenMode.centerLayout": false,
