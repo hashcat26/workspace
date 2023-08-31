@@ -7,7 +7,7 @@ $PersistsDir = "$PSScriptRoot\packages\persist"
 Set-Location -LiteralPath $PSScriptRoot
 
 Invoke-Expression "scoop update ; scoop update -a"
-Invoke-Expression "cd utilities ; pipenv update -q ; cd .."
+Invoke-Expression "cd utilities ; pipenv update ; cd .."
 Invoke-Expression "git clone -v $WorkspaceRepo"
 
 $AliasFile = "workspace\configs\aliases.sh"
