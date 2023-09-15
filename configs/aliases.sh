@@ -27,9 +27,9 @@ alias track='dl(){ trk "$1"; cd ..; unset dl; }; dl'
 alias video='dl(){ vid "$1"; cd ..; unset dl; }; dl'
 
 # other ffmpeg binary-dependent aliases added by hashcat
-alias view='pl(){ img "$1" &>/dev/null; cat ../downloads/images/*.jpg | ffmpeg -i - -r 1/3 -f webm - 2>/dev/null | ffplay -i -; cd ..; unset pl; }; pl'
+alias listen='pl(){ cd utilities; pipenv run yt-dlp ytsearch:"$1 lyrics" -f ba -o - 2>/dev/null | ffplay -autoexit -nodisp -i -; cd ..; unset pl; }; pl'
 alias watch='pl(){ cd utilities; pipenv run yt-dlp "$1" -f bv+ba -o - 2>/dev/null | ffplay -autoexit -i -; cd ..; unset pl; }; pl'
-alias present='pl(){ cd "$1"; cat *.jpg | ffmpeg -i - -r 1/3 -f image2pipe - 2>/dev/null | ffplay -autoexit -i -; cd ../..; unset pl; }; pl'
+alias present='pl(){ cd "$1"; cat *.jpg | ffmpeg -i - -r 900 -f webm - 2>/dev/null | ffplay -autoexit -i -; cd ../..; unset pl; }; pl'
 
 case "$TERM" in
 xterm*)
