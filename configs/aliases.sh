@@ -13,7 +13,7 @@ alias remove='scoop uninstall -p "$@"'
 alias cleanup='scoop cache rm -a'
 
 # other workspace script-dependent aliases added by hashcat
-alias fetch='curl -kO downloads/temporaries'
+alias test='powershell ./binaries/test.ps1'
 alias setup='powershell ./setup.ps1'
 alias update='powershell ./update.ps1'
 alias upgrade='setup; update'
@@ -28,13 +28,13 @@ alias arc='cd utilities; pipenv run yt-dlp --config-location ../configs/yt-dlp.c
 alias image='dl(){ img "$1"; cd ..; unset dl; }; dl'
 alias track='dl(){ trk "$1"; cd ..; unset dl; }; dl'
 alias video='dl(){ vid "$1"; cd ..; unset dl; }; dl'
-alias archive='dl(){ arc "$1"; cd ..; unset dl; }; dl'
+alias archive='dl(){ arc "$1"; rename; unset dl; }; dl'
 
-# other ffmpeg binary-dependent aliases added by hashcat
+# other utility binary-dependent aliases added by hashcat
 alias present='pl(){ cd "$1"; cat *.jpg | ffmpeg -i - -r 900 -f webm - 2>/dev/null | ffplay -autoexit -i -; cd ../..; unset pl; }; pl'
 alias listen='pl(){ cd utilities; pipenv run yt-dlp ytsearch:"$1" -f ba -o - 2>/dev/null | ffplay -autoexit -nodisp -i -; cd ..; unset pl; }; pl'
 alias watch='pl(){ cd utilities; pipenv run yt-dlp "$1" -f bv+ba -o - 2>/dev/null | ffplay -autoexit -i -; cd ..; unset pl; }; pl'
-alias rename='pl(){ cd downloads/archives; find . -iname "*chat*" -exec rename live_chat chat "{}" \; cd ../..; unset pl; }; pl'
+alias rename='pl(){ cd ../downloads/archives; find . -name "*chat*" | sed "p;s/\live_chat/\chat/" | xargs -n2 mv ; cd ../..; unset pl; }; pl'
 
 case "$TERM" in
 xterm*)
