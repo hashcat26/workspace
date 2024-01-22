@@ -7,11 +7,13 @@ alias la='ls -a'
 alias ll='ls -l'
 
 # other scoop application-dependent aliases added by hashcat
+alias list='scoop list'
 alias install='scoop install "$@"'
 alias remove='scoop uninstall -p "$@"'
 alias cleanup='scoop cache rm -a'
 
 # other workspace script-dependent aliases added by hashcat
+alias fetch='curl -kO downloads/temporaries'
 alias setup='powershell ./setup.ps1'
 alias update='powershell ./update.ps1'
 alias upgrade='setup; update'
@@ -20,16 +22,17 @@ alias upgrade='setup; update'
 alias img='cd utilities; pipenv run gallery-dl --directory ../downloads/images'
 alias trk='cd utilities; pipenv run spotdl --output ../downloads/tracks'
 alias vid='cd utilities; pipenv run yt-dlp --merge mp4 --paths ../downloads/videos'
+alias arc='cd utilities; pipenv run yt-dlp --config-location ../configs/yt-dlp.conf'
 
 # other terminal helper-dependent aliases added by hashcat
 alias image='dl(){ img "$1"; cd ..; unset dl; }; dl'
 alias track='dl(){ trk "$1"; cd ..; unset dl; }; dl'
 alias video='dl(){ vid "$1"; cd ..; unset dl; }; dl'
+alias archive='dl(){ arc "$1"; cd ..; unset dl; }; dl'
 
 # other ffmpeg binary-dependent aliases added by hashcat
 alias listen='pl(){ cd utilities; pipenv run yt-dlp ytsearch:"$1" -f ba -o - 2>/dev/null | ffplay -autoexit -nodisp -i -; cd ..; unset pl; }; pl'
 alias watch='pl(){ cd utilities; pipenv run yt-dlp "$1" -f bv+ba -o - 2>/dev/null | ffplay -autoexit -i -; cd ..; unset pl; }; pl'
-alias present='pl(){ cd "$1"; cat *.jpg | ffmpeg -i - -r 900 -f webm - 2>/dev/null | ffplay -autoexit -i -; cd ../..; unset pl; }; pl'
 
 case "$TERM" in
 xterm*)
