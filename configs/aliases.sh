@@ -13,7 +13,7 @@ alias remove='scoop uninstall -p "$@"'
 alias cleanup='scoop cache rm -a'
 
 # other workspace script-dependent aliases added by hashcat
-alias test='powershell ./binaries/test.ps1'
+alias manage='powershell ./packages/shims/scoop.ps1'
 alias setup='powershell ./setup.ps1'
 alias update='powershell ./update.ps1'
 alias upgrade='setup; update'
