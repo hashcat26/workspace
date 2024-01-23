@@ -5,6 +5,13 @@
 alias ls='ls -F --color=auto --show-control-chars'
 alias la='ls -a'
 alias ll='ls -l'
+alias lr='ls -R'
+
+# other project repository-dependent aliases added by hashcat
+alias bucket='cd ../bucket'
+alias discbot='cd ../discbot'
+alias gccport='cd ../gccport'
+alias workspace='cd ../workspace'
 
 # other scoop application-dependent aliases added by hashcat
 alias list='scoop list'
