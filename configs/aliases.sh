@@ -41,7 +41,7 @@ alias archive='dl(){ arc "$1"; rename; unset dl; }; dl'
 alias present='pl(){ cd "$1"; cat *.jpg | ffmpeg -i - -r 900 -f webm - 2>/dev/null | ffplay -autoexit -i -; cd ../..; unset pl; }; pl'
 alias listen='pl(){ cd utilities; pipenv run yt-dlp ytsearch:"$1" -f ba -o - 2>/dev/null | ffplay -autoexit -nodisp -i -; cd ..; unset pl; }; pl'
 alias watch='pl(){ cd utilities; pipenv run yt-dlp "$1" -f bv+ba -o - 2>/dev/null | ffplay -autoexit -i -; cd ..; unset pl; }; pl'
-alias rename='pl(){ cd ../downloads/archives; find . -name "*chat*" | sed "p;s/\live_chat/\chat/" | xargs -n2 mv ; cd ../..; unset pl; }; pl'
+alias rename='pl(){ cd ../downloads/archives; find . -name "*chat*" | sed "p;s/live_chat/chat/" | xargs -n2 mv ; cd ../..; unset pl; }; pl'
 
 case "$TERM" in
 xterm*)
