@@ -33,6 +33,7 @@
 	pl = pull origin
 	ps = push origin
 	rc = rebase --continue
+	rs = !git reset --hard HEAD~1 && git push --force origin
 	ru = remote update
 	st = status --short --branch
 	up = !git remote update && git pull origin
