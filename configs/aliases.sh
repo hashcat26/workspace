@@ -35,7 +35,7 @@ alias arc='cd utilities; pipenv run yt-dlp --config-location ../configs/yt-dlp.c
 alias image='dl(){ img "$1"; cd ..; unset dl; }; dl'
 alias track='dl(){ trk "$1"; cd ..; unset dl; }; dl'
 alias video='dl(){ vid "$1"; cd ..; unset dl; }; dl'
-alias archive='dl(){ arc "$1"; rename; unset dl; }; dl'
+alias archive='dl(){ arc "$@"; cd ..; unset dl; }; dl'
 
 # other utility binary-dependent aliases added by hashcat
 alias present='pl(){ cd "$1"; cat *.jpg | ffmpeg -i - -r 900 -f webm - 2>/dev/null | ffplay -autoexit -i -; cd ../..; unset pl; }; pl'
