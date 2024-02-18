@@ -32,9 +32,9 @@ alias vid='cd utilities; pipenv run yt-dlp --merge mp4 --paths ../downloads/vide
 alias arc='cd utilities; pipenv run yt-dlp --config-location ../configs/yt-dlp.conf'
 
 # other terminal helper-dependent aliases added by hashcat
-alias image='dl(){ img "$1"; cd ..; unset dl; }; dl'
-alias track='dl(){ trk "$1"; cd ..; unset dl; }; dl'
-alias video='dl(){ vid "$1"; cd ..; unset dl; }; dl'
+alias image='dl(){ img "$@"; cd ..; unset dl; }; dl'
+alias track='dl(){ trk "$@"; cd ..; unset dl; }; dl'
+alias video='dl(){ vid "$@"; cd ..; unset dl; }; dl'
 alias archive='dl(){ arc "$@"; cd ..; unset dl; }; dl'
 
 # other utility binary-dependent aliases added by hashcat
