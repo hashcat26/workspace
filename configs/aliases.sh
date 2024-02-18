@@ -32,16 +32,10 @@ alias vid='cd utilities; pipenv run yt-dlp --merge mp4 --paths ../downloads/vide
 alias arc='cd utilities; pipenv run yt-dlp --config-location ../configs/yt-dlp.conf'
 
 # other terminal helper-dependent aliases added by hashcat
-alias image='dl(){ img "$@"; cd ..; unset dl; }; dl'
-alias track='dl(){ trk "$@"; cd ..; unset dl; }; dl'
-alias video='dl(){ vid "$@"; cd ..; unset dl; }; dl'
-alias archive='dl(){ arc "$@"; cd ..; unset dl; }; dl'
-
-# other utility binary-dependent aliases added by hashcat
-alias present='pl(){ cd "$1"; cat *.jpg | ffmpeg -i - -r 900 -f webm - 2>/dev/null | ffplay -autoexit -i -; cd ../..; unset pl; }; pl'
-alias listen='pl(){ cd utilities; pipenv run yt-dlp ytsearch:"$1" -f ba -o - 2>/dev/null | ffplay -autoexit -nodisp -i -; cd ..; unset pl; }; pl'
-alias watch='pl(){ cd utilities; pipenv run yt-dlp "$1" -f bv+ba -o - 2>/dev/null | ffplay -autoexit -i -; cd ..; unset pl; }; pl'
-alias rename='pl(){ cd ../downloads/archives; find . -name "*chat*" | sed "p;s/live_chat/chat/" | xargs -n2 mv ; cd ../..; unset pl; }; pl'
+alias image='dl(){ for i in $@; do img "$i"; cd ..; done; unset dl; }; dl'
+alias track='dl(){ for i in $@; do trk "$i"; cd ..; done; unset dl; }; dl'
+alias video='dl(){ for i in $@; do vid "$i"; cd ..; done; unset dl; }; dl'
+alias archive='dl(){ for i in $@; do arc "$i"; cd ..; done; unset dl; }; dl'
 
 case "$TERM" in
 xterm*)
