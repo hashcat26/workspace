@@ -20,7 +20,7 @@ alias remove='scoop uninstall -p "$@"'
 alias cleanup='scoop cache rm -a'
 
 # other workspace script-dependent aliases added by hashcat
-alias manage='powershell ./packages/shims/scoop.ps1'
+alias fetch='aria2c --conf-path=configs/aria2.conf'
 alias setup='powershell ./setup.ps1'
 alias update='powershell ./update.ps1'
 alias upgrade='setup; update'
