@@ -31,5 +31,5 @@ Invoke-Expression "rm -r -force workspace ; attrib +h .git"
 Invoke-Expression "git remote update ; git pull"
 
 ForEach ($Cache In @(Get-ChildItem packages\cache).BaseName) {
-    Invoke-Expression "del -force packages/cache/$Cache"
+    Invoke-Expression "del -force packages\cache\$Cache"
 }
