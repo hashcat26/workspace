@@ -8,7 +8,7 @@
     "editor.guides.bracketPairsHorizontal": false,
     "editor.matchBrackets": "near",
     "editor.minimap.showSlider": "always",
-    "editor.occurrencesHighlight": false,
+    "editor.occurrencesHighlight": "off",
     "editor.overviewRulerBorder": false,
     "editor.renderLineHighlight": "none",
     "editor.scrollbar.horizontal": "visible",
@@ -91,6 +91,7 @@
 
     // OTHERS
     "extensions.ignoreRecommendations": true,
+    "discord.removeRemoteRepository": true,
     "telemetry.telemetryLevel": "off",
     "update.showReleaseNotes": false
 }
