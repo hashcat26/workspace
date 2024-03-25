@@ -6,11 +6,11 @@ $BucketRepo = "https://github.com/hashcat26/bucket"
 $PackagesDir = "$PSScriptRoot\packages"
 Set-Location -LiteralPath $PSScriptRoot
 
-$ScoopFile = "downloads\scripts\scoop.ps1"
-$AppList = "cmder", "ffmpeg", "git", "python", "qemu", "vscode"
-$PackageList = "gallery-dl", "spotdl", "yt-dlp"
+New-Item downloads\scripts -ItemType Directory
+New-Item utilities\.venv -ItemType Directory
+New-Item binaries, configs, packages -ItemType Directory
 
-New-Item downloads\scripts, packages, utilities -ItemType Dir
+$ScoopFile = "downloads\scripts\scoop.ps1"
 Invoke-RestMethod get.scoop.sh -OutFile $ScoopFile
 .$ScoopFile -ScoopDir $PackagesDir
 
@@ -18,13 +18,17 @@ Invoke-Expression "scoop install git ; scoop bucket add extras"
 Invoke-Expression "scoop bucket add hashcat $BucketRepo"
 Invoke-Expression "scoop uninstall -p 7zip git" *> $Null
 
+$BucketDir = "$PSScriptRoot\packages\buckets\hashcat\bucket"
+$AppList = @(Get-ChildItem $BucketDir -Exclude 7zip*, git*)
+$PackageList = @("gallery-dl", "spotdl", "yt-dlp")
+
 ForEach ($App In $AppList) {
     Invoke-Expression "scoop install hashcat/$App"
 } Invoke-Expression "scoop install 7zip git" *> $Null
 
-Invoke-Expression "python -m pip install -U setuptools"
-Invoke-Expression "python -m pip install -U pip pipenv"
-Invoke-Expression "cd utilities ; md -f .venv" *> $Null
+Invoke-Expression "python -m pip install -U pip pip-review"
+Invoke-Expression "pip install setuptools wheel pipenv"
+Invoke-Expression "pip-review -aC ; cd utilities" *> $Null
 
 ForEach ($Package In $PackageList) {
     Invoke-Expression "pipenv install $Package"

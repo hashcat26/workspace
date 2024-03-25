@@ -29,3 +29,7 @@ ForEach ($File In $KeyFile, $OptFile, $TaskFile) {
 Invoke-Expression "cp -r -force workspace/* ."
 Invoke-Expression "rm -r -force workspace ; attrib +h .git"
 Invoke-Expression "git remote update ; git pull"
+
+ForEach ($Cache In Get-ChildItem $PersistsDir\..\cache) {
+    Invoke-Expression "del -force $Cache"
+}
