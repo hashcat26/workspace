@@ -30,6 +30,6 @@ Invoke-Expression "cp -r -force workspace/* ."
 Invoke-Expression "rm -r -force workspace ; attrib +h .git"
 Invoke-Expression "git remote update ; git pull"
 
-ForEach ($Cache In Get-ChildItem packages\cache) {
+ForEach ($Cache In @(Get-ChildItem packages\cache)) {
     Invoke-Expression "del -force $Cache"
 }
