@@ -24,12 +24,12 @@ $TaskFile = "workspace\configs\tasks.json"
 
 ForEach ($File In $KeyFile, $OptFile, $TaskFile) {
     Copy-Item $File "$PersistsDir\vscode\data\user-data\User"
-} Invoke-Expression "scoop cleanup -a" *> $Null
+} Invoke-Expression "code --update-extensions"
 
 Invoke-Expression "cp -r -force workspace/* ."
 Invoke-Expression "rm -r -force workspace ; attrib +h .git"
 Invoke-Expression "git remote update ; git pull"
 
 ForEach ($Cache In @(Get-ChildItem packages\cache).Name) {
-    Invoke-Expression "del -force packages/cache/$Cache"
-}
+    Invoke-Expression "del packages/cache/$Cache"
+} Invoke-Expression "scoop cleanup -a" *> $Null

@@ -28,7 +28,7 @@ ForEach ($App In $AppList) {
 
 Invoke-Expression "python -m pip install -U pip pip-review"
 Invoke-Expression "pip install setuptools wheel pipenv"
-Invoke-Expression "pip-review -aC ; cd utilities" *> $Null
+Invoke-Expression "pip-review -aC ; cd utilities"
 
 ForEach ($Package In $PackageList) {
     Invoke-Expression "pipenv install $Package"
