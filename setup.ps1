@@ -19,12 +19,12 @@ Invoke-Expression "scoop bucket add hashcat $BucketRepo"
 Invoke-Expression "scoop uninstall -p 7zip git" *> $Null
 
 $BucketDir = "$PSScriptRoot\packages\buckets\hashcat\bucket"
-$AppList = @(Get-ChildItem $BucketDir -Exclude 7zip*, git*)
+$AppList = @(Get-ChildItem $BucketDir -Exclude 7zip*).BaseName
 $PackageList = @("gallery-dl", "spotdl", "yt-dlp")
 
 ForEach ($App In $AppList) {
     Invoke-Expression "scoop install hashcat/$App"
-} Invoke-Expression "scoop install 7zip git" *> $Null
+} Invoke-Expression "scoop install 7zip" *> $Null
 
 Invoke-Expression "python -m pip install -U pip pip-review"
 Invoke-Expression "pip install setuptools wheel pipenv"
