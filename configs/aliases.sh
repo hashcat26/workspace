@@ -39,7 +39,7 @@ alias archive='dl(){ for i in $@; do arc "$i"; cd ..; done; unset dl; }; dl'
 
 # other utility binary-dependent aliases added by hashcat
 alias show='pl(){ cd "$1"; cat *.jpg | ffmpeg -i - -r 900 -f webm - 2>/dev/null | ffplay -autoexit -i -; cd ../..; unset pl; }; pl'
-alias merge='pl(){ cd "$1"; cat *.mp4 | ffmpeg -i - -r 900 -f webm - 2>/dev/null | ffplay -autoexit -i -; cd ../..; unset pl; }; pl'
+alias merge='pl(){ cd "$1"; cat *.mp4 | ffmpeg -i - -f webm - 2>/dev/null | ffplay -autoexit -i -; cd ../..; unset pl; }; pl'
 alias listen='pl(){ cd utilities; pipenv run yt-dlp "$1" -f ba -o - 2>/dev/null | ffplay -autoexit -nodisp -i -; cd ..; unset pl; }; pl'
 alias watch='pl(){ cd utilities; pipenv run yt-dlp "$1" -f bv+ba -o - 2>/dev/null | ffplay -autoexit -i -; cd ..; unset pl; }; pl'
 
