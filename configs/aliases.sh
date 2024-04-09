@@ -37,6 +37,12 @@ alias track='dl(){ for i in $@; do trk "$i"; cd ..; done; unset dl; }; dl'
 alias video='dl(){ for i in $@; do vid "$i"; cd ..; done; unset dl; }; dl'
 alias archive='dl(){ for i in $@; do arc "$i"; cd ..; done; unset dl; }; dl'
 
+# other utility binary-dependent aliases added by hashcat
+alias show='pl(){ cd "$1"; cat *.jpg | ffmpeg -i - -r 900 -f webm - 2>/dev/null | ffplay -autoexit -i -; cd ../..; unset pl; }; pl'
+alias merge='pl(){ cd "$1"; cat *.mp4 | ffmpeg -i - -r 900 -f webm - 2>/dev/null | ffplay -autoexit -i -; cd ../..; unset pl; }; pl'
+alias listen='pl(){ cd utilities; pipenv run yt-dlp "$1" -f ba -o - 2>/dev/null | ffplay -autoexit -nodisp -i -; cd ..; unset pl; }; pl'
+alias watch='pl(){ cd utilities; pipenv run yt-dlp "$1" -f bv+ba -o - 2>/dev/null | ffplay -autoexit -i -; cd ..; unset pl; }; pl'
+
 case "$TERM" in
 xterm*)
 	# The following programs are known to require a Win32 Console
