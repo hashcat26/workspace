@@ -24,7 +24,7 @@ $PackageList = @("gallery-dl", "spotdl", "yt-dlp")
 
 ForEach ($App In $AppList) {
     Invoke-Expression "scoop install hashcat/$App"
-} Invoke-Expression "scoop install 7zip" *> $Null
+} Invoke-Expression "scoop install hashcat/7zip" *> $Null
 
 Invoke-Expression "python -m pip install -U pip pip-review"
 Invoke-Expression "pip install setuptools wheel pipenv"
