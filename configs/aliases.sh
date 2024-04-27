@@ -27,7 +27,7 @@ alias upgrade='setup; update'
 
 # other python package-dependent aliases added by hashcat
 alias img='cd utilities; pipenv run gallery-dl --cookies cookies.txt --directory ../downloads/images'
-alias trk='cd utilities; pipenv run spotdl --output ../downloads/tracks'
+alias trk='cd utilities; pipenv run spotdl --cookie-file cookies.txt --output ../downloads/tracks'
 alias vid='cd utilities; pipenv run yt-dlp --merge mp4 --paths ../downloads/videos'
 alias arc='cd utilities; pipenv run yt-dlp --config-location ../configs/yt-dlp.conf'
 
