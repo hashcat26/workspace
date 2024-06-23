@@ -18,6 +18,14 @@ Copy-Item $AliasFile "$PersistsDir\git\etc\profile.d"
 Copy-Item $TermFile "$PersistsDir\cmder\vendor\conemu-maximus5"
 Copy-Item $ConfigFile "$PersistsDir\git\etc"
 
+$WindowFile = "workspace\configs\komorebi.json"
+$AppFile = "workspace\configs\applications.json"
+$MacroFile = "workspace\configs\whkdrc"
+
+Copy-Item $WindowFile "$PersistsDir\komorb\config"
+Copy-Item $AppFile "$PersistsDir\komorb\config"
+Copy-Item $MacroFile "$PersistsDir\whkd\config"
+
 $KeyFile = "workspace\configs\keybindings.json"
 $OptFile = "workspace\configs\settings.json"
 $TaskFile = "workspace\configs\tasks.json"

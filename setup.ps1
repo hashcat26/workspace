@@ -33,3 +33,11 @@ Invoke-Expression "pip-review -aC ; cd utilities"
 ForEach ($Package In $PackageList) {
     Invoke-Expression "pipenv install $Package"
 } Invoke-Expression "cd .. ; scoop status" *> $Null
+
+$ExtensionList = @("icrawl.discord-vscode",
+    "ms-vscode.powershell", "ms-vscode.cpptools",
+    "ms-python.python", "platformio.platformio-ide")
+
+ForEach ($Extension In $ExtensionList) {
+    Invoke-Expression "code --install-extension $Extension"
+} Invoke-Expression "$Env:SCOOP = $PackagesDir" *> $Null
