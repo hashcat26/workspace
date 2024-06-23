@@ -1,5 +1,4 @@
 {
-    "$schema": "https://raw.githubusercontent.com/LGUG2Z/komorebi/master/schema.json",
     "app_specific_configuration_path": "$Env:KOMOREBI_CONFIG_HOME/applications.json",
 
     "mouse_follows_focus": false,
