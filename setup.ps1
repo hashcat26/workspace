@@ -40,4 +40,4 @@ $ExtensionList = @("icrawl.discord-vscode",
 
 ForEach ($Extension In $ExtensionList) {
     Invoke-Expression "code --install-extension $Extension"
-} Invoke-Expression "$Env:SCOOP = $PackagesDir" *> $Null
+} Invoke-Expression "code --status" *> $Null
