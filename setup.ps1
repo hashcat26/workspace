@@ -34,10 +34,10 @@ ForEach ($Package In $PackageList) {
     Invoke-Expression "pipenv install $Package"
 } Invoke-Expression "cd .. ; scoop status" *> $Null
 
-$ExtensionList = @("icrawl.discord-vscode",
+$ExtList = @("formulahendry.code-runner", "ms-python.python",
     "ms-vscode.powershell", "ms-vscode.cpptools",
-    "ms-python.python", "platformio.platformio-ide")
+    "platformio.platformio-ide", "icrawl.discord-vscode")
 
-ForEach ($Extension In $ExtensionList) {
-    Invoke-Expression "code --install-extension $Extension"
+ForEach ($Ext In $ExtList) {
+    Invoke-Expression "code --install-extension $Ext"
 } Invoke-Expression "code --status" *> $Null
