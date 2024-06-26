@@ -7,9 +7,44 @@
             "detail": "runs the active ps script in the editor",
             "type": "shell",
             "command": "powershell",
-            "args": ["-File", "${file}"],
+            "args": ["-f", "${file}"],
             "group": "test",
-            "icon": {"id": "run"}
+            "icon": {"id": "run"},
+            "presentation": {"focus": true, "clear": true},
+            "options": {"cwd": "${fileWorkspaceFolder}", "shell": {"executable": "powershell"}}
+        },
+        {
+            "label": "python: run",
+            "detail": "runs the active py script in the editor",
+            "type": "shell",
+            "command": "python",
+            "args": ["-t", "${file}"],
+            "group": "test",
+            "icon": {"id": "run"},
+            "presentation": {"focus": true, "clear": true},
+            "options": {"cwd": "${fileWorkspaceFolder}", "shell": {"executable": "powershell"}}
+        },
+        {
+            "label": "batch: run",
+            "detail": "runs the active bat script in the editor",
+            "type": "shell",
+            "command": "cmd",
+            "args": ["/q", "/c", "${file}"],
+            "group": "test",
+            "icon": {"id": "run"},
+            "presentation": {"focus": true, "clear": true},
+            "options": {"cwd": "${fileWorkspaceFolder}", "shell": {"executable": "powershell"}}
+        },
+        {
+            "label": "bash: run",
+            "detail": "runs the active sh script in the editor",
+            "type": "shell",
+            "command": "bash",
+            "args": ["-l", "-i", "${file}"],
+            "group": "test",
+            "icon": {"id": "run"},
+            "presentation": {"focus": true, "clear": true},
+            "options": {"cwd": "${fileWorkspaceFolder}", "shell": {"executable": "powershell"}}
         }
     ]
 }
