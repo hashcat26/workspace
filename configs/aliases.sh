@@ -3,9 +3,6 @@
 
 # --show-control-chars: help showing Korean or accented characters
 alias ls='ls -F --color=auto --show-control-chars'
-alias la='ls -a'
-alias ll='ls -l'
-alias lr='ls -R'
 
 # other project repository-dependent aliases added by hashcat
 alias bucket='cd ../bucket'
@@ -17,7 +14,7 @@ alias workspace='cd ../workspace'
 alias list='scoop list'
 alias install='scoop install "$@"'
 alias remove='scoop uninstall -p "$@"'
-alias cleanup='scoop cache rm -a'
+alias clean='scoop cache rm -a; scoop cleanup -a'
 
 # other workspace script-dependent aliases added by hashcat
 alias fetch='aria2c --conf-path=configs/aria2.conf'
@@ -30,18 +27,21 @@ alias img='cd utilities; pipenv run gallery-dl --cookies cookies.txt --directory
 alias trk='cd utilities; pipenv run spotdl --cookie-file cookies.txt --output ../downloads/tracks'
 alias vid='cd utilities; pipenv run yt-dlp --merge mp4 --paths ../downloads/videos'
 alias arc='cd utilities; pipenv run yt-dlp --config-location ../configs/yt-dlp.conf'
+alias cap='vid --output "%(title)s [%(id)s] (%(section_start)s-%(section_end)s).%(ext)s" --force-keyframes-at-cuts'
 
 # other terminal helper-dependent aliases added by hashcat
 alias image='dl(){ for i in $@; do img "$i"; cd ..; done; unset dl; }; dl'
 alias track='dl(){ for i in $@; do trk "$i"; cd ..; done; unset dl; }; dl'
 alias video='dl(){ for i in $@; do vid "$i"; cd ..; done; unset dl; }; dl'
 alias archive='dl(){ for i in $@; do arc "$i"; cd ..; done; unset dl; }; dl'
+alias capture='dl(){ cap --download-sections "$2" "$1"; cd ..; unset dl; }; dl'
 
 # other utility binary-dependent aliases added by hashcat
-alias show='pl(){ cd "$1"; cat *.jpg | ffmpeg -i - -r 900 -f webm - 2>/dev/null | ffplay -autoexit -i -; cd ../..; unset pl; }; pl'
-alias merge='pl(){ cd "$1"; cat *.mp4 | ffmpeg -i - -f webm - 2>/dev/null | ffplay -autoexit -i -; cd ../..; unset pl; }; pl'
-alias listen='pl(){ cd utilities; pipenv run yt-dlp "$1" -f ba -o - 2>/dev/null | ffplay -autoexit -nodisp -i -; cd ..; unset pl; }; pl'
-alias watch='pl(){ cd utilities; pipenv run yt-dlp "$1" -f bv+ba -o - 2>/dev/null | ffplay -autoexit -i -; cd ..; unset pl; }; pl'
+alias play='ffplay -fs -autoexit -infbuf -framedrop -hide_banner -window_title ffplay -i -'
+alias listen='pl(){ cd utilities; pipenv run yt-dlp "$1" -f ba -o - 2>/dev/null | play -nodisp; cd ..; unset pl; }; pl'
+alias watch='pl(){ cd utilities; pipenv run yt-dlp "$1" -f bv+ba -o - 2>/dev/null | play; cd ..; unset pl; }; pl'
+alias lurk='pl(){ cd utilities; pipenv run yt-dlp "$1" -f ba* -o - 2>/dev/null | play -nodisp; cd ..; unset pl; }; pl'
+alias stream='pl(){ cd utilities; pipenv run yt-dlp "$1" -f bv*+ba* -o - 2>/dev/null | play; cd ..; unset pl; }; pl'
 
 case "$TERM" in
 xterm*)
