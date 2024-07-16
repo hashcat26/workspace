@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <key name="Software">
 	<key name="ConEmu">
-		<key name=".Vanilla" modified="2024-02-26 19:00:58" build="230724">
+		<key name=".Vanilla" modified="2024-07-17 06:58:57" build="230724">
 			<value name="Language" type="string" data="en"/>
 			<value name="StartType" type="hex" data="02"/>
 			<value name="CmdLine" type="string" data=""/>
@@ -137,11 +137,11 @@
 			<value name="Cascaded" type="hex" data="01"/>
 			<value name="IntegralSize" type="hex" data="00"/>
 			<value name="WindowMode" type="dword" data="00000520"/>
-			<value name="ConWnd X" type="long" data="564"/>
-			<value name="ConWnd Y" type="long" data="-8"/>
+			<value name="ConWnd X" type="long" data="323"/>
+			<value name="ConWnd Y" type="long" data="155"/>
 			<value name="LastMonitor" type="string" data="0,0,1366,728"/>
-			<value name="ConWnd Width" type="dword" data="00000049"/>
-			<value name="ConWnd Height" type="dword" data="00000002"/>
+			<value name="ConWnd Width" type="dword" data="00000055"/>
+			<value name="ConWnd Height" type="dword" data="00000008"/>
 			<value name="16bit Height" type="ulong" data="0"/>
 			<value name="QuakeStyle" type="hex" data="00"/>
 			<value name="Restore2ActiveMon" type="hex" data="00"/>
@@ -391,7 +391,7 @@
 			<value name="Update.DownloadPath" type="string" data="%TEMP%\ConEmu"/>
 			<value name="Update.LeavePackages" type="hex" data="00"/>
 			<value name="Update.PostUpdateCmd" type="string" data="echo Last successful update&gt;ConEmuUpdate.info &amp;&amp; date /t&gt;&gt;ConEmuUpdate.info &amp;&amp; time /t&gt;&gt;ConEmuUpdate.info"/>
-			<key name="HotKeys" modified="2024-02-26 19:00:58" build="230724">
+			<key name="HotKeys" modified="2024-07-17 06:58:57" build="230724">
 				<value name="KeyMacroVersion" type="hex" data="02"/>
 				<value name="Multi.Modifier" type="dword" data="00000011"/>
 				<value name="Multi.ArrowsModifier" type="dword" data="0000005b"/>
@@ -590,9 +590,9 @@
 				<value name="DndRKey" type="hex" data="A2"/>
 				<value name="WndDragKey" type="dword" data="00121101"/>
 			</key>
-			<key name="Tasks" modified="2024-02-26 19:00:58" build="230724">
+			<key name="Tasks" modified="2024-07-17 06:58:57" build="230724">
 				<value name="Count" type="long" data="8"/>
-				<key name="Task1" modified="2024-02-26 19:00:58" build="230724">
+				<key name="Task1" modified="2024-07-17 06:58:57" build="230724">
 					<value name="Name" type="string" data="{*cmd}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -601,7 +601,7 @@
 					<value name="Count" type="long" data="1"/>
 					<value name="Cmd1" type="string" data='*"%SystemRoot%\System32\cmd.exe" /k ""%ConEmuDir%\..\init.bat"" -new_console:d:"%ConEmuDir%\..\..\..\..\..\.."'/>
 				</key>
-				<key name="Task2" modified="2024-02-26 19:00:58" build="230724">
+				<key name="Task2" modified="2024-07-17 06:58:57" build="230724">
 					<value name="Name" type="string" data="{cmd}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -610,7 +610,7 @@
 					<value name="Count" type="long" data="1"/>
 					<value name="Cmd1" type="string" data='"%SystemRoot%\System32\cmd.exe" /k ""%ConEmuDir%\..\init.bat"" -new_console:d:"%ConEmuDir%\..\..\..\..\..\.."'/>
 				</key>
-				<key name="Task3" modified="2024-02-26 19:00:58" build="230724">
+				<key name="Task3" modified="2024-07-17 06:58:57" build="230724">
 					<value name="Name" type="string" data="{*psh}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -619,7 +619,7 @@
 					<value name="Count" type="long" data="1"/>
 					<value name="Cmd1" type="string" data='*"%SystemRoot%\System32\WindowsPowerShell\V1.0\powershell.exe" -ExecutionPolicy Bypass -NoLogo -NoProfile -NoExit -Command "Invoke-Expression &apos;Import-Module &apos;&apos;%ConEmuDir%\..\profile.ps1&apos;&apos;&apos;" -new_console:d:"%ConEmuDir%\..\..\..\..\..\.."'/>
 				</key>
-				<key name="Task4" modified="2024-02-26 19:00:58" build="230724">
+				<key name="Task4" modified="2024-07-17 06:58:57" build="230724">
 					<value name="Name" type="string" data="{psh}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -628,7 +628,7 @@
 					<value name="Count" type="long" data="1"/>
 					<value name="Cmd1" type="string" data='"%SystemRoot%\System32\WindowsPowerShell\V1.0\powershell.exe" -ExecutionPolicy Bypass -NoLogo -NoProfile -NoExit -Command "Invoke-Expression &apos;Import-Module &apos;&apos;%ConEmuDir%\..\profile.ps1&apos;&apos;&apos;" -new_console:d:"%ConEmuDir%\..\..\..\..\..\.."'/>
 				</key>
-				<key name="Task5" modified="2024-02-26 19:00:58" build="230724">
+				<key name="Task5" modified="2024-07-17 06:58:57" build="230724">
 					<value name="Name" type="string" data="{*wsl}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -637,7 +637,7 @@
 					<value name="Count" type="long" data="1"/>
 					<value name="Cmd1" type="string" data='*"%SystemRoot%\System32\wsl.exe" -u root -new_console:d:"%ConEmuDir%\..\..\..\..\..\.."'/>
 				</key>
-				<key name="Task6" modified="2024-02-26 19:00:58" build="230724">
+				<key name="Task6" modified="2024-07-17 06:58:57" build="230724">
 					<value name="Name" type="string" data="{wsl}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -646,7 +646,7 @@
 					<value name="Count" type="long" data="1"/>
 					<value name="Cmd1" type="string" data='"%SystemRoot%\System32\wsl.exe" -u hashcat -new_console:d:"%ConEmuDir%\..\..\..\..\..\.."'/>
 				</key>
-				<key name="Task7" modified="2024-02-26 19:00:58" build="230724">
+				<key name="Task7" modified="2024-07-17 06:58:57" build="230724">
 					<value name="Name" type="string" data="{*bsh}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -655,7 +655,7 @@
 					<value name="Count" type="long" data="1"/>
 					<value name="Cmd1" type="string" data='*"%Git_Install_Root%\Bin\bash.exe" -l -i -new_console:d:"%ConEmuDir%\..\..\..\..\..\.."'/>
 				</key>
-				<key name="Task8" modified="2024-02-26 19:00:58" build="230724">
+				<key name="Task8" modified="2024-07-17 06:58:57" build="230724">
 					<value name="Name" type="string" data="{bsh}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="0000114e"/>
@@ -665,12 +665,12 @@
 					<value name="Cmd1" type="string" data='"%Git_Install_Root%\Bin\bash.exe" -l -i -new_console:d:"%ConEmuDir%\..\..\..\..\..\.."'/>
 				</key>
 			</key>
-			<key name="Apps" modified="2024-02-26 19:00:58" build="230724">
+			<key name="Apps" modified="2024-07-17 06:58:57" build="230724">
 				<value name="Count" type="long" data="0"/>
 			</key>
-			<key name="Colors" modified="2024-02-26 19:00:58" build="230724">
+			<key name="Colors" modified="2024-07-17 06:58:57" build="230724">
 				<value name="Count" type="long" data="1"/>
-				<key name="Palette1" modified="2024-02-26 19:00:58" build="230724">
+				<key name="Palette1" modified="2024-07-17 06:58:57" build="230724">
 					<value name="Name" type="string" data="Monokai"/>
 					<value name="TextColorIdx" type="hex" data="10"/>
 					<value name="BackColorIdx" type="hex" data="10"/>
