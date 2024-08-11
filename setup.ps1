@@ -14,25 +14,29 @@ $ScoopFile = "downloads\scripts\scoop.ps1"
 Invoke-RestMethod get.scoop.sh -OutFile $ScoopFile
 .$ScoopFile -ScoopDir $PackagesDir
 
-Invoke-Expression "scoop install git ; scoop bucket add extras"
+Invoke-Expression "scoop install 7zip git"
+Invoke-Expression "scoop bucket add extras"
 Invoke-Expression "scoop bucket add hashcat $BucketRepo"
-Invoke-Expression "scoop uninstall -p 7zip git" *> $Null
+
+If (Invoke-Expression "scoop list 6>&1" | Select-String main) {
+    Invoke-Expression "scoop uninstall -p 7zip git" *> $Null
+} Invoke-Expression "scoop config aria2-enabled false" *> $Null
 
 $BucketDir = "$PSScriptRoot\packages\buckets\hashcat\bucket"
-$AppList = @(Get-ChildItem $BucketDir -Exclude 7zip*).BaseName
-$PackageList = @("gallery-dl", "spotdl", "yt-dlp")
+$AppList = @(Get-ChildItem $BucketDir).BaseName
+$PkgList = @("gallery-dl", "spotdl", "yt-dlp")
 
 ForEach ($App In $AppList) {
     Invoke-Expression "scoop install hashcat/$App"
-} Invoke-Expression "scoop install hashcat/7zip" *> $Null
+} Invoke-Expression "scoop status" *> $Null
 
 Invoke-Expression "python -m pip install -U pip pip-review"
 Invoke-Expression "pip install setuptools wheel pipenv"
 Invoke-Expression "pip-review -aC ; cd utilities"
 
-ForEach ($Package In $PackageList) {
-    Invoke-Expression "pipenv install $Package"
-} Invoke-Expression "cd .. ; scoop status" *> $Null
+ForEach ($Pkg In $PkgList) {
+    Invoke-Expression "pipenv install $Pkg"
+} Invoke-Expression "pipenv clean ; cd .." *> $Null
 
 $ExtList = @("formulahendry.code-runner", "ms-python.python",
     "ms-vscode.powershell", "ms-vscode.cpptools",

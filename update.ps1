@@ -10,6 +10,10 @@ Invoke-Expression "scoop update ; scoop update -a"
 Invoke-Expression "cd utilities ; pipenv update ; cd .."
 Invoke-Expression "git clone -v $WorkspaceRepo"
 
+ForEach ($File In @(Get-ChildItem workspace\configs).Name) {
+    Copy-Item workspace\configs\$File "$PersistsDir\nu\nushell"
+} Invoke-Expression "del $PersistsDir\nu\nushell -e *.nu"
+
 $AliasFile = "workspace\configs\aliases.sh"
 $TermFile = "workspace\configs\ConEmu.xml"
 $ConfigFile = "workspace\configs\gitconfig"
@@ -34,10 +38,10 @@ ForEach ($File In $KeyFile, $OptFile, $TaskFile) {
     Copy-Item $File "$PersistsDir\vscode\data\user-data\User"
 } Invoke-Expression "code --update-extensions"
 
-Invoke-Expression "cp -r -force workspace/* ."
+Invoke-Expression "cp -r -force workspace\* ."
 Invoke-Expression "rm -r -force workspace ; attrib +h .git"
 Invoke-Expression "git remote update ; git pull"
 
 ForEach ($Cache In @(Get-ChildItem packages\cache).Name) {
-    Invoke-Expression "del packages/cache/$Cache"
+    Invoke-Expression "del packages\cache\$Cache"
 } Invoke-Expression "scoop cleanup -a" *> $Null
