@@ -6,15 +6,15 @@ $BucketRepo = "https://github.com/hashcat26/bucket"
 $PackagesDir = "$PSScriptRoot\packages"
 Set-Location -LiteralPath $PSScriptRoot
 
-New-Item downloads\scripts -ItemType Directory
-New-Item utilities\.venv -ItemType Directory
-New-Item binaries, configs, packages -ItemType Directory
+New-Item downloads\scripts -ItemType Directory *> $Null
+New-Item utilities\.venv -ItemType Directory *> $Null
+New-Item packages -ItemType Directory *> $Null
 
 $ScoopFile = "downloads\scripts\scoop.ps1"
 Invoke-RestMethod get.scoop.sh -OutFile $ScoopFile
 .$ScoopFile -ScoopDir $PackagesDir
 
-Invoke-Expression "scoop install 7zip git"
+Invoke-Expression "scoop install 7zip git" *> $Null
 Invoke-Expression "scoop bucket add extras"
 Invoke-Expression "scoop bucket add hashcat $BucketRepo"
 

@@ -12,7 +12,7 @@ Invoke-Expression "git clone -v $WorkspaceRepo"
 
 ForEach ($File In @(Get-ChildItem workspace\configs).Name) {
     Copy-Item workspace\configs\$File "$PersistsDir\nu\nushell"
-} Invoke-Expression "del $PersistsDir\nu\nushell -e *.nu"
+} Invoke-Expression "del $PersistsDir\nu\nushell -r -e *.nu"
 
 $AliasFile = "workspace\configs\aliases.sh"
 $TermFile = "workspace\configs\ConEmu.xml"
