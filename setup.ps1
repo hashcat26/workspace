@@ -6,21 +6,21 @@ $BucketRepo = "https://github.com/hashcat26/bucket"
 $PackagesDir = "$PSScriptRoot\packages"
 Set-Location -LiteralPath $PSScriptRoot
 
-New-Item downloads\scripts -ItemType Directory *> $Null
-New-Item utilities\.venv -ItemType Directory *> $Null
-New-Item packages -ItemType Directory *> $Null
+New-Item downloads\scripts, utilities\.venv -ItemType Directory
+New-Item binaries, configs, packages -ItemType Directory
+New-Item packages\config.json -ItemType File *> $Null
 
 $ScoopFile = "downloads\scripts\scoop.ps1"
 Invoke-RestMethod get.scoop.sh -OutFile $ScoopFile
 .$ScoopFile -ScoopDir $PackagesDir
 
 Invoke-Expression "scoop install 7zip git" *> $Null
-Invoke-Expression "scoop bucket add extras"
-Invoke-Expression "scoop bucket add hashcat $BucketRepo"
+Invoke-Expression "scoop config use_isolated_path true"
+Invoke-Expression "scoop config aria2-enabled false"
 
 If (Invoke-Expression "scoop list 6>&1" | Select-String main) {
     Invoke-Expression "scoop uninstall -p 7zip git" *> $Null
-} Invoke-Expression "scoop config aria2-enabled false" *> $Null
+} Invoke-Expression "scoop bucket add hashcat $BucketRepo"
 
 $BucketDir = "$PSScriptRoot\packages\buckets\hashcat\bucket"
 $AppList = @(Get-ChildItem $BucketDir).BaseName
