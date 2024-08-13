@@ -3,27 +3,31 @@ $WarningPreference = "SilentlyContinue"
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 $BucketRepo = "https://github.com/hashcat26/bucket"
-$PackagesDir = "$PSScriptRoot\packages"
+$PackagesDir = "$PSScriptRoot/packages"
 Set-Location -LiteralPath $PSScriptRoot
 
-New-Item downloads\scripts, utilities\.venv -ItemType Directory
-New-Item binaries, configs, packages -ItemType Directory
-New-Item packages\config.json -ItemType File *> $Null
+New-Item downloads/scripts -ItemType Dir *> $Null
+New-Item utilities/.venv -ItemType Dir *> $Null
+New-Item binaries, configs, packages -ItemType Dir *> $Null
 
-$ScoopFile = "downloads\scripts\scoop.ps1"
+$ScoopFile = "downloads/scripts/scoop.ps1"
 Invoke-RestMethod get.scoop.sh -OutFile $ScoopFile
 .$ScoopFile -ScoopDir $PackagesDir
 
+Invoke-Expression "ni packages/config.json" *> $Null
+Invoke-Expression "scoop config use_isolated_path SCP" *> $Null
+Invoke-Expression "scoop config aria2-enabled false" *> $Null
+
 Invoke-Expression "scoop install 7zip git" *> $Null
-Invoke-Expression "scoop config use_isolated_path true"
-Invoke-Expression "scoop config aria2-enabled false"
+Invoke-Expression "scoop bucket add extras"
+Invoke-Expression "scoop bucket add hashcat $BucketRepo"
 
 If (Invoke-Expression "scoop list 6>&1" | Select-String main) {
     Invoke-Expression "scoop uninstall -p 7zip git" *> $Null
-} Invoke-Expression "scoop bucket add hashcat $BucketRepo"
+} Invoke-Expression "scoop install hashcat/git"
 
-$BucketDir = "$PSScriptRoot\packages\buckets\hashcat\bucket"
-$AppList = @(Get-ChildItem $BucketDir).BaseName
+$BucketDir = "$PSScriptRoot/packages/buckets/hashcat/bucket"
+$AppList = @(Get-ChildItem $BucketDir -Exclude git*).BaseName
 $PkgList = @("gallery-dl", "spotdl", "yt-dlp")
 
 ForEach ($App In $AppList) {
