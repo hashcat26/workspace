@@ -24,10 +24,10 @@ Invoke-Expression "scoop bucket add hashcat $BucketRepo"
 
 If (Invoke-Expression "scoop list 6>&1" | Select-String main) {
     Invoke-Expression "scoop uninstall -p 7zip git" *> $Null
-} Invoke-Expression "scoop install hashcat/git"
+} Invoke-Expression "scoop install hashcat/7zip hashcat/git"
 
-$BucketDir = "$PSScriptRoot/packages/buckets/hashcat/bucket"
-$AppList = @(Get-ChildItem $BucketDir -Exclude git*).BaseName
+$AppDir = "$PSScriptRoot/packages/buckets/hashcat/bucket"
+$AppList = @(Get-ChildItem $AppDir -Exclude 7z*, git*).BaseName
 $PkgList = @("gallery-dl", "spotdl", "yt-dlp")
 
 ForEach ($App In $AppList) {
