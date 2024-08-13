@@ -14,7 +14,7 @@ $ScoopFile = "downloads/scripts/scoop.ps1"
 Invoke-RestMethod get.scoop.sh -OutFile $ScoopFile
 .$ScoopFile -ScoopDir $PackagesDir
 
-Invoke-Expression "ni packages/config.json" *> $Null
+Invoke-Expression "ni -f packages/config.json" *> $Null
 Invoke-Expression "scoop config use_isolated_path SCP" *> $Null
 Invoke-Expression "scoop config aria2-enabled false" *> $Null
 
