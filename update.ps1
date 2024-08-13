@@ -18,14 +18,6 @@ Copy-Item $AliasFile "$PersistsDir\git\etc\profile.d"
 Copy-Item $TermFile "$PersistsDir\cmder\vendor\conemu-maximus5"
 Copy-Item $ConfigFile "$PersistsDir\git\etc"
 
-$ShellFile = "workspace\configs\config.nu"
-$EnvFile = "workspace\configs\env.nu"
-$PromptFile = "workspace\configs\prompt.nu"
-
-ForEach ($File In $ShellFile, $EnvFile, $PromptFile) {
-    Copy-Item $File "$PersistsDir\nu\nushell"
-} Invoke-Expression "del -r $Env:UserProfile\.config"
-
 $WindowFile = "workspace\configs\komorebi.json"
 $AppFile = "workspace\configs\applications.json"
 $MacroFile = "workspace\configs\whkdrc"
@@ -41,6 +33,14 @@ $TaskFile = "workspace\configs\tasks.json"
 ForEach ($File In $KeyFile, $OptFile, $TaskFile) {
     Copy-Item $File "$PersistsDir\vscode\data\user-data\User"
 } Invoke-Expression "code --update-extensions"
+
+$ShellFile = "workspace\configs\config.nu"
+$EnvFile = "workspace\configs\env.nu"
+$PromptFile = "workspace\configs\prompt.nu"
+
+ForEach ($File In $ShellFile, $EnvFile, $PromptFile) {
+    Copy-Item $File "$PersistsDir\nu\nushell"
+} Invoke-Expression "scoop reset -a" *> $Null
 
 Invoke-Expression "cp -r -force workspace\* ."
 Invoke-Expression "rm -r -force workspace ; attrib +h .git"
