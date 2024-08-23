@@ -2,7 +2,7 @@
 
 # Global Functions
 use std null-device
-export def main [] {[(session), (directory), (duration), (datetime), (gitstat)] | str join ""}
+export def main [] {[(session), (directory), (duration), (gitstat)] | str join ""}
 
 # Global Helpers
 def style [] {
@@ -65,11 +65,11 @@ def duration [] {
     } else if ($seconds >= 60) {
         $label = ($label | append $"($seconds // 60)m ")
         $seconds = ($seconds mod 60)
-    } else if ($seconds <= 0.01) {
-        $seconds = 0.01
+    } else if ($seconds <= 0.1) {
+        $seconds = 0.1
     }
 
-    ($label | append $"($seconds | math round -p 2)s(ansi reset)] " | str join)
+    ($label | append $"($seconds | math round -p 1)s(ansi reset)] " | str join)
 }
 
 def datetime [] {
