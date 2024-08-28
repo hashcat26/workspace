@@ -936,7 +936,7 @@ let options = "--output '%(title)s [%(id)s] (%(section_start)s-%(section_end)s).
 def clip [link, time] {[$command, $options, "--download-sections", $time, $link] | str join " " | nu -c $in}
 
 let command = "cd utilities; pipenv run spotdl sync"
-let playlists = (open F:/Users/Dwight/Downloads/Projects/workspace/downloads/tracks/index.txt | lines | str join " ")
+let playlists = ("downloads/tracks/index.txt" | path expand | open $in | lines | str join " ")
 let output = "../downloads/tracks/index.spotdl"
 let options = "--output '../downloads/tracks/{list-name}/{artists} - {title}.{output-ext}' --max-retries 1000"
 def make [] {[$command, $playlists, "--save-file", $output, $options] | str join " " | nu -c $in}
