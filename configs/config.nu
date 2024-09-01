@@ -904,16 +904,18 @@ alias bucket = cd ../bucket
 alias discbot = cd ../discbot
 alias gccport = cd ../gccport
 alias workspace = cd ../workspace
+alias activate = overlay use utilities/.venv/Scripts/activate.nu
 
 def list [] {scoop list}
 def clean [] {scoop cache rm -a; scoop cleanup -a}
 def install [...apps] {for $app in $apps {scoop install $app}}
 def remove [...apps] {for $app in $apps {scoop uninstall -p $app}}
+def fetch [...files] {for $file in $files {aria2c --conf-path=configs/aria2.conf $file}}
 
 def setup [] {powershell ./setup.ps1}
 def refresh [] {powershell ./update.ps1}
 def upgrade [] {setup; refresh}
-def fetch [link] {aria2c --conf-path=configs/aria2.conf $link}
+def spotify [] {make; sync}
 
 def img [link] {cd utilities; pipenv run gallery-dl --cookies cookies.txt --directory ../downloads/images $link}
 def trk [link] {cd utilities; pipenv run spotdl --cookie-file cookies.txt --output ../downloads/tracks $link}
