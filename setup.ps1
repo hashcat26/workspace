@@ -42,10 +42,10 @@ ForEach ($Pkg In $PkgList) {
     Invoke-Expression "pipenv install $Pkg"
 } Invoke-Expression "pipenv clean ; cd .." *> $Null
 
-$ExtList = @("formulahendry.code-runner", "ms-python.python",
-    "ms-vscode.powershell", "ms-vscode.cpptools",
-    "platformio.platformio-ide", "icrawl.discord-vscode")
+$BaseUrl = "https://raw.githubusercontent.com/hashcat26"
+$FileUrl = "workspace\master\configs\extensions.lst"
+$ExtList = @(Invoke-RestMethod $BaseUrl/$FileUrl) -Split "\n"
 
-ForEach ($Ext In $ExtList) {
+ForEach ($Ext In $ExtList | Select-Object -SkipLast 1) {
     Invoke-Expression "code --install-extension $Ext"
 } Invoke-Expression "code --status" *> $Null
