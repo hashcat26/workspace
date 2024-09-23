@@ -9,7 +9,7 @@ $env.PROMPT_MULTILINE_INDICATOR = {|| "# " }
 
 # If you want previously entered commands to have a different prompt from the usual one,
 # you can uncomment one or more of the following lines.
-# This can be useful if you have a 2-line prompt and it's taking up a lot of space
+# This can be useful if you have a 2-line prompt and it"s taking up a lot of space
 # because every command entered takes up 2 lines instead of 1. You can then uncomment
 # the line below so that previously entered commands show with a single `🚀`.
 # $env.TRANSIENT_PROMPT_COMMAND = {|| "🚀 " }
@@ -48,7 +48,7 @@ $env.NU_PLUGIN_DIRS = [
 ]
 
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
-# $env.PATH = ($env.PATH | split row (char esep) | prepend '/some/path')
+# $env.PATH = ($env.PATH | split row (char esep) | prepend "/some/path")
 # An alternate way to add entries to $env.PATH is to use the custom command `path add`
 # which is built into the nushell stdlib:
 # use std "path add"
@@ -59,4 +59,4 @@ $env.NU_PLUGIN_DIRS = [
 # $env.PATH = ($env.PATH | uniq)
 
 # To load from a custom file you can use:
-# source ($nu.default-config-dir | path join 'custom.nu')
+# source ($nu.default-config-dir | path join "custom.nu")
