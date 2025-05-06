@@ -18,7 +18,7 @@ jobs:
           fetch-depth: 2
           path: hashcat
       - name: Initialize Validators
-        uses: potatoqualitee/psmodulecache@v5.1
+        uses: potatoqualitee/psmodulecache@main
         with:
           modules-to-cache: BuildHelpers
           shell: powershell
@@ -36,7 +36,7 @@ jobs:
           fetch-depth: 2
           path: hashcat
       - name: Initialize Validators
-        uses: potatoqualitee/psmodulecache@v5.1
+        uses: potatoqualitee/psmodulecache@main
         with:
           modules-to-cache: BuildHelpers
           shell: pwsh
