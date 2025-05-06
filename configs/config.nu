@@ -222,8 +222,8 @@ $env.config = {
     }
 
     filesize: {
-        metric: true # true => KB, MB, GB (ISO standard), false => KiB, MiB, GiB (Windows standard)
-        format: "auto" # b, kb, kib, mb, mib, gb, gib, tb, tib, pb, pib, eb, eib, auto
+        unit: "metric" # "metric" will use units with metric (SI) prefixes like kB, MB, or GB.
+        show_unit: true # Whether to show or hide the file size unit. Useful if $env.config.filesize.unit is set to a fixed unit
     }
 
     cursor_shape: {

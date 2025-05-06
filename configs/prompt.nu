@@ -123,7 +123,7 @@ def location [] {
     if ($env.PWD == $nu.home-path) {
         "~"
     } else if ($env.PWD | str contains $env.HOMEPATH) {
-        $"~/($env.PWD | str replace $env.HOMEPATH ~ | path split | range 1.. | path join | path relative-to $nu.home-path)"
+        $"~/($env.PWD | str replace $env.HOMEPATH ~ | path split | slice 1.. | path join | path relative-to $nu.home-path)"
     } else {
         $"($env.PWD | str replace : (char nul) | path parse | str downcase parent | path join)"
     }
