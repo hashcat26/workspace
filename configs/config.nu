@@ -946,6 +946,6 @@ let command = "cd utilities; pipenv run spotdl sync"
 let playlists = ("downloads/tracks/index.txt" | path expand | open $in | lines | str join " ")
 let output = "../downloads/tracks/index.spotdl"
 let options = "--output '../downloads/tracks/{list-name}/{artists} - {title}.{output-ext}' --max-retries 1000"
-def make [] {[$command, $playlists, "--save-file", $output, $options] | str join " " | nu -c $in}
+def init [] {[$command, $playlists, "--save-file", $output, $options] | str join " " | nu -c $in}
 def sync [] {[$command, $output, $options] | str join " " | nu -c $in}
-def spotify [] {make; sync}
+def spotify [] {init; sync}
