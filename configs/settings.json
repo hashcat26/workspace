@@ -6,6 +6,7 @@
     "editor.foldingHighlight": false,
     "editor.fontFamily": "Fira Code, monospace",
     "editor.guides.bracketPairsHorizontal": false,
+    "editor.inlayHints.enabled": "off",
     "editor.matchBrackets": "near",
     "editor.minimap.showSlider": "always",
     "editor.occurrencesHighlight": "off",
@@ -26,7 +27,7 @@
     "files.trimTrailingWhitespace": true,
 
     // WORKBENCH
-    "workbench.colorTheme": "Default Dark+",
+    "workbench.colorTheme": "Dark+",
     "workbench.editor.decorations.badges": false,
     "workbench.editor.defaultBinaryEditor": "default",
     "workbench.editor.empty.hint": "hidden",
@@ -84,7 +85,7 @@
     "terminal.integrated.enablePersistentSessions": false,
     "terminal.integrated.hideOnStartup": "always",
     "terminal.integrated.rightClickBehavior": "paste",
-    "terminal.integrated.shellIntegration.enabled": false,
+    "terminal.integrated.shellIntegration.enabled": true,
     "terminal.integrated.smoothScrolling": true,
 
     // NOTEBOOK
@@ -119,22 +120,34 @@
     "terminal.integrated.profiles.windows": {
         "term": {
             "path": "cmd.exe",
-            "args": ["/t:02", "/k", "prompt $P$G$S"],
+            "args": [
+                "/t:02", "/k",
+                "prompt $P$G$S"
+            ],
             "icon": "terminal-cmd"
         },
         "pwsh": {
             "path": "powershell.exe",
-            "args": ["-noexit", "-command", "function prompt {echo \"$([char]27)[35mPS $(pwd)> \"}"],
+            "args": [
+                "-noexit", "-command",
+                "function prompt {echo \"$([char]27)[35mPS $(pwd)> \"}"
+            ],
             "icon": "terminal-powershell"
         },
         "bash": {
             "path": "bash.exe",
-            "args": ["--login", "--protected"],
+            "args": [
+                "--login",
+                "--protected"
+            ],
             "icon": "terminal-bash"
         },
         "nush": {
             "path": "nu.exe",
-            "args": ["--config ${env:Nu_Install_Root}/nushell/config.nu --env-config ${env:Nu_Install_Root}/nushell/env.nu"],
+            "args": [
+                "--config", "${env:Nu_Install_Root}/nushell/config.nu",
+                "--env-config", "${env:Nu_Install_Root}/nushell/env.nu"
+            ],
             "icon": "terminal-tmux"
         }
     }
