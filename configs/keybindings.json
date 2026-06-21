@@ -1,4 +1,7 @@
 [
+    // EDITOR
+    {"key": "ctrl+k l", "command": "editor.action.showDefinitionPreviewHover"},
+
     // WORKBENCH
     {"key": "ctrl+tab", "command": "workbench.action.nextEditor"},
     {"key": "ctrl+shift+tab", "command": "workbench.action.previousEditor"},
