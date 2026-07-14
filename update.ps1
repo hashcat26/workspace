@@ -22,8 +22,8 @@ $WindowFile = "workspace\configs\komorebi.json"
 $AppFile = "workspace\configs\applications.json"
 $MacroFile = "workspace\configs\whkdrc"
 
-Copy-Item $WindowFile "$PersistsDir\komorb\config"
-Copy-Item $AppFile "$PersistsDir\komorb\config"
+Copy-Item $WindowFile "$PersistsDir\komorebi\config"
+Copy-Item $AppFile "$PersistsDir\komorebi\config"
 Copy-Item $MacroFile "$PersistsDir\whkd\config"
 
 $KeyFile = "workspace\configs\keybindings.json"
