@@ -26,10 +26,10 @@ alias update='powershell ./update.ps1'
 alias upgrade='setup; update'
 
 # other python package-dependent aliases added by hashcat
-alias img='cd utilities; pipenv run gallery-dl --cookies cookies.txt --directory ../downloads/images'
-alias trk='cd utilities; pipenv run spotdl --cookie-file cookies.txt --output ../downloads/tracks'
-alias vid='cd utilities; pipenv run yt-dlp --merge mp4 --paths ../downloads/videos'
-alias arc='cd utilities; pipenv run yt-dlp --config-location ../configs/yt-dlp.conf'
+alias img='cd utilities; uv run gallery-dl --cookies cookies.txt --directory ../downloads/images'
+alias trk='cd utilities; uv run spotdl --cookie-file cookies.txt --output ../downloads/tracks'
+alias vid='cd utilities; uv run yt-dlp --merge mp4 --paths ../downloads/videos'
+alias arc='cd utilities; uv run yt-dlp --config-location ../configs/yt-dlp.conf'
 alias clp='vid --output "%(title)s [%(id)s] (%(section_start)s-%(section_end)s).%(ext)s" --force-keyframes-at-cuts'
 
 # other terminal helper-dependent aliases added by hashcat
@@ -41,16 +41,16 @@ alias clip='dl(){ clp --download-sections "$2" "$1"; cd ..; unset dl; }; dl'
 
 # other ytdlp binary-dependent aliases added by hashcat
 alias play='ffplay -fs -autoexit -infbuf -framedrop -hide_banner -window_title ffplay -i -'
-alias listen='pl(){ cd utilities; pipenv run yt-dlp "$1" -f ba -o - 2>/dev/null | play -nodisp; cd ..; unset pl; }; pl'
-alias watch='pl(){ cd utilities; pipenv run yt-dlp "$1" -f bv+ba -o - 2>/dev/null | play; cd ..; unset pl; }; pl'
-alias lurk='pl(){ cd utilities; pipenv run yt-dlp "$1" -f ba* -o - 2>/dev/null | play -nodisp; cd ..; unset pl; }; pl'
-alias stream='pl(){ cd utilities; pipenv run yt-dlp "$1" -f bv*+ba* -o - 2>/dev/null | play; cd ..; unset pl; }; pl'
+alias listen='pl(){ cd utilities; uv run yt-dlp "$1" -f ba -o - 2>/dev/null | play -nodisp; cd ..; unset pl; }; pl'
+alias watch='pl(){ cd utilities; uv run yt-dlp "$1" -f bv+ba -o - 2>/dev/null | play; cd ..; unset pl; }; pl'
+alias lurk='pl(){ cd utilities; uv run yt-dlp "$1" -f ba* -o - 2>/dev/null | play -nodisp; cd ..; unset pl; }; pl'
+alias stream='pl(){ cd utilities; uv run yt-dlp "$1" -f bv*+ba* -o - 2>/dev/null | play; cd ..; unset pl; }; pl'
 
 # other spotdl binary-dependent aliases added by hashcat
-alias make='sl(){ cd utilities; pipenv run spotdl sync $(cat ../downloads/tracks/index.txt | sed "s/\n/ /g") \
+alias make='sl(){ cd utilities; uv run spotdl sync $(cat ../downloads/tracks/index.txt | sed "s/\n/ /g") \
 	--save-file ../downloads/tracks/index.spotdl \
 	--output "../downloads/tracks/{list-name}/{artists} - {title}.{output-ext}"; cd ..; unset sl; }; sl'
-alias sync='sl(){ cd utilities; pipenv run spotdl sync ../downloads/tracks/index.spotdl \
+alias sync='sl(){ cd utilities; uv run spotdl sync ../downloads/tracks/index.spotdl \
 	--output "../downloads/tracks/{list-name}/{artists} - {title}.{output-ext}"; cd ..; unset sl; }; sl'
 
 case "$TERM" in

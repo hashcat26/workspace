@@ -922,10 +922,10 @@ def setup [] {powershell ./setup.ps1}
 def refresh [] {powershell ./update.ps1}
 def upgrade [] {setup; refresh}
 
-def img [link] {cd utilities; pipenv run gallery-dl --cookies cookies.txt --directory ../downloads/images $link}
-def trk [link] {cd utilities; pipenv run spotdl --cookie-file cookies.txt --output ../downloads/tracks $link}
-def vid [link] {cd utilities; pipenv run yt-dlp --merge mp4 --paths ../downloads/videos $link}
-def arc [link] {cd utilities; pipenv run yt-dlp --config-location ../configs/yt-dlp.conf $link}
+def img [link] {cd utilities; uv run gallery-dl --cookies cookies.txt --directory ../downloads/images $link}
+def trk [link] {cd utilities; uv run spotdl --cookie-file cookies.txt --output ../downloads/tracks $link}
+def vid [link] {cd utilities; uv run yt-dlp --merge mp4 --paths ../downloads/videos $link}
+def arc [link] {cd utilities; uv run yt-dlp --config-location ../configs/yt-dlp.conf $link}
 
 def image [...links] {for $link in $links {img $link}}
 def track [...links] {for $link in $links {trk $link}}
@@ -933,16 +933,16 @@ def video [...links] {for $link in $links {vid $link}}
 def archive [...links] {for $link in $links {arc $link}}
 
 alias play = ffplay -fs -autoexit -infbuf -framedrop -hide_banner -window_title ffplay -i -
-def listen [link] {cd utilities; pipenv run yt-dlp $link -f ba -o - err> (null-device) | play -nodisp}
-def watch [link] {cd utilities; pipenv run yt-dlp $link -f bv+ba -o - err> (null-device) | play}
-def lurk [link] {cd utilities; pipenv run yt-dlp $link -f ba* -o - err> (null-device) | play -nodisp}
-def stream [link] {cd utilities; pipenv run yt-dlp $link -f bv*+ba* -o - err> (null-device) | play}
+def listen [link] {cd utilities; uv run yt-dlp $link -f ba -o - err> (null-device) | play -nodisp}
+def watch [link] {cd utilities; uv run yt-dlp $link -f bv+ba -o - err> (null-device) | play}
+def lurk [link] {cd utilities; uv run yt-dlp $link -f ba* -o - err> (null-device) | play -nodisp}
+def stream [link] {cd utilities; uv run yt-dlp $link -f bv*+ba* -o - err> (null-device) | play}
 
-let command = "cd utilities; pipenv run yt-dlp --merge mp4 --paths ../downloads/videos"
+let command = "cd utilities; uv run yt-dlp --merge mp4 --paths ../downloads/videos"
 let options = "--output '%(title)s [%(id)s] (%(section_start)s-%(section_end)s).%(ext)s' --force-keyframes-at-cuts"
 def clip [link, time] {[$command, $options, "--download-sections", $time, $link] | str join " " | nu -c $in}
 
-let command = "cd utilities; pipenv run spotdl sync"
+let command = "cd utilities; uv run spotdl sync"
 let playlists = ("downloads/tracks/index.txt" | path expand | open $in | lines | str join " ")
 let output = "../downloads/tracks/index.spotdl"
 let options = "--output '../downloads/tracks/{list-name}/{artists} - {title}.{output-ext}' --max-retries 1000"

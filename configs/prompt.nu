@@ -75,9 +75,9 @@ def duration [] {
 def datetime [] {
     let color = (style)
     let date = (date now | format date "%m/%d/%y")
-    let day = (date now |format date "%a" | str upcase)
+    let day = (date now |format date "%a" | str uppercase)
     let time = (date now | format date "%I:%M:%S")
-    let ext = (date now |format date "%P" | str upcase)
+    let ext = (date now |format date "%P" | str uppercase)
 
     if (is-terminal -i) {
         $"[($color.DATETIME_STYLE)($date) ($day)(ansi white) | ($color.DATETIME_STYLE)($time) ($ext)(ansi reset)] "
