@@ -22,7 +22,7 @@ Invoke-Expression "scoop install 7zip git" *> $Null
 Invoke-Expression "scoop bucket add extras"
 Invoke-Expression "scoop bucket add hashcat $BucketRepo"
 
-If (Invoke-Expression "scoop list 6>&1" | Select-String main) {
+If (Invoke-Expression "scoop info git" | Select-String main) {
     Invoke-Expression "scoop uninstall -p 7zip git" *> $Null
 } Invoke-Expression "scoop install hashcat/7zip hashcat/git"
 
@@ -34,13 +34,13 @@ ForEach ($App In $AppList) {
     Invoke-Expression "scoop install hashcat/$App"
 } Invoke-Expression "scoop status" *> $Null
 
-Invoke-Expression "python -m pip install -U pip pip-review"
-Invoke-Expression "pip install setuptools wheel pipenv"
-Invoke-Expression "pip-review -aC ; cd utilities"
+Invoke-Expression "cd utilities ; python -m pip install -U pip"
+Invoke-Expression "uv init --bare --no-readme" *> $Null
+Invoke-Expression "uv version --bump patch" *> $Null
 
 ForEach ($Pkg In $PkgList) {
-    Invoke-Expression "pipenv install $Pkg"
-} Invoke-Expression "pipenv clean ; cd .." *> $Null
+    Invoke-Expression "uv add $Pkg"
+} Invoke-Expression "uv lock ; cd .." *> $Null
 
 $BaseUrl = "https://raw.githubusercontent.com/hashcat26"
 $FileUrl = "workspace\master\configs\extensions.lst"

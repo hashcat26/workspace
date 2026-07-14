@@ -7,8 +7,8 @@ $PersistsDir = "$PSScriptRoot\packages\persist"
 Set-Location -LiteralPath $PSScriptRoot
 
 Invoke-Expression "scoop update ; scoop update -a"
-Invoke-Expression "cd utilities ; pipenv update ; cd .."
-Invoke-Expression "git clone -v $WorkspaceRepo"
+Invoke-Expression "cd utilities ; uv lock --upgrade ; uv sync"
+Invoke-Expression "cd .. ; git clone -v $WorkspaceRepo"
 
 $AliasFile = "workspace\configs\aliases.sh"
 $TermFile = "workspace\configs\ConEmu.xml"
