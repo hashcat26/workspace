@@ -12,7 +12,7 @@ New-Item binaries, configs, packages -ItemType Dir *> $Null
 
 $ScoopFile = "downloads\scripts\scoop.ps1"
 Invoke-RestMethod get.scoop.sh -OutFile $ScoopFile
-.$ScoopFile -ScoopDir $PackagesDir
+& $ScoopFile -ScoopDir $PackagesDir
 
 Invoke-Expression "scoop config use_isolated_path true"
 Invoke-Expression "scoop config use_external_7zip true"
