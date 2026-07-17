@@ -95,7 +95,7 @@
 
     // EXTENSIONS
     "extensions.autoCheckUpdates": false,
-    "extensions.autoUpdate": false,
+    "extensions.autoUpdate": "off",
     "extensions.ignoreRecommendations": true,
 
     // UPDATE
@@ -109,6 +109,15 @@
     "code-runner.fileDirectoryAsCwd": true,
     "code-runner.saveFileBeforeRun": true,
     "code-runner.temporaryFileName": "temp",
+
+    // LATEX
+    "[latex]": {"editor.formatOnSave": true},
+    "latex-workshop.bibtex-format.tab": "4 spaces",
+    "latex-workshop.format.fixMath.enabled": true,
+    "latex-workshop.formatting.latex": "latexindent",
+    "latex-workshop.linting.chktex.enabled": true,
+    "latex-workshop.message.error.show": false,
+    "latex-workshop.message.warning.show": false,
 
     // OTHERS
     "discord.removeRemoteRepository": true,
