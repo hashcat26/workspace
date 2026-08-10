@@ -17,6 +17,7 @@
     "editor.smoothScrolling": true,
     "editor.stickyTabStops": true,
     "editor.tabCompletion": "on",
+    "editor.wordWrap": "on",
 
     // FILES
     "files.autoSave": "afterDelay",
@@ -118,6 +119,7 @@
     "latex-workshop.linting.chktex.enabled": true,
     "latex-workshop.message.error.show": false,
     "latex-workshop.message.warning.show": false,
+    "latex-workshop.synctex.afterBuild.enabled": true,
 
     // OTHERS
     "discord.removeRemoteRepository": true,
