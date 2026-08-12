@@ -120,6 +120,8 @@
     "latex-workshop.message.error.show": false,
     "latex-workshop.message.warning.show": false,
     "latex-workshop.synctex.afterBuild.enabled": true,
+    "latex-workshop.view.pdf.tab.editorGroup": "current",
+    "latex-workshop.view.pdf.zoom": "page-width",
 
     // OTHERS
     "discord.removeRemoteRepository": true,
