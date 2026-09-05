@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <key name="Software">
 	<key name="ConEmu">
-		<key name=".Vanilla" modified="2024-08-23 16:09:26" build="230724">
+		<key name=".Vanilla" modified="2026-09-05 21:44:41" build="230724">
 			<value name="Language" type="string" data="en"/>
 			<value name="StartType" type="hex" data="02"/>
 			<value name="CmdLine" type="string" data=""/>
@@ -137,8 +137,8 @@
 			<value name="Cascaded" type="hex" data="01"/>
 			<value name="IntegralSize" type="hex" data="00"/>
 			<value name="WindowMode" type="dword" data="00000520"/>
-			<value name="ConWnd X" type="long" data="-1"/>
-			<value name="ConWnd Y" type="long" data="0"/>
+			<value name="ConWnd X" type="long" data="551"/>
+			<value name="ConWnd Y" type="long" data="-13"/>
 			<value name="LastMonitor" type="string" data="0,0,1366,728"/>
 			<value name="ConWnd Width" type="dword" data="00000055"/>
 			<value name="ConWnd Height" type="dword" data="00000002"/>
@@ -160,7 +160,7 @@
 			<value name="ConsoleFontWidth" type="long" data="3"/>
 			<value name="ConsoleFontHeight" type="long" data="5"/>
 			<value name="DynamicBufferHeight" type="hex" data="01"/>
-			<value name="DefaultBufferHeight" type="long" data="1000"/>
+			<value name="DefaultBufferHeight" type="long" data="32766"/>
 			<value name="AutoBufferHeight" type="hex" data="01"/>
 			<value name="UseScrollLock" type="hex" data="01"/>
 			<value name="ComSpec.Type" type="hex" data="00"/>
