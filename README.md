@@ -3,8 +3,8 @@ Portable coding workspace generator and updater written in [PowerShell](https://
 
 Getting the files:
 ---------------------------------
-To get the files, run `curl -kO https://raw.githubusercontent.com/hashcat26/workspace/master/{setup,update}.ps1`.
+To get the files, run `curl -kO https://raw.githubusercontent.com/hashcat26/workspace/master/workspace.ps1`.
 
 Initializing workspace:
 ---------------------------------
-To perform workspace initialization, do `powershell -c "./setup.ps1 ; ./update.ps1"`.
+To perform workspace initialization, do `powershell -c "./workspace.ps1"`.

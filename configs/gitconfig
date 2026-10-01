@@ -1,48 +1,48 @@
 [init]
-	defaultBranch = master
+defaultBranch = master
 
 [user]
-	name = hashcat26
-	email = dowaitodoratore@gmail.com
+name = hashcat26
+email = dowaitodoratore@gmail.com
 
 [credential]
-	helper = manager
+helper = manager
 
 [help]
-	format = web
+format = web
 
 [core]
-	symlinks = false
-	autocrlf = true
-	fscache = true
+symlinks = false
+autocrlf = true
+fscache = true
 
 [color]
-	interactive = true
-	ui = auto
+interactive = true
+ui = auto
 
 [pull]
-	rebase = false
+rebase = false
 
 [rebase]
-	autosquash = true
+autosquash = true
 
 [alias]
-	cl = clone --verbose
-	cm = !git add --all && git commit --message
-	lg = log --oneline --graph
-	pl = pull origin
-	ps = push origin
-	rc = rebase --continue
-	rs = !git reset --hard HEAD~1 && git push --force origin
-	ru = remote update
-	st = status --short --branch
-	up = !git remote update && git pull origin
+cl = clone --verbose
+cm = !git add --all && git commit --message
+lg = log --oneline --graph
+pl = pull origin
+ps = push origin
+rc = rebase --continue
+rs = !git reset --hard HEAD~1 && git push --force origin HEAD
+ru = remote update
+st = status --short --branch
+up = !git remote update && git pull origin
 
 [diff "astextplain"]
-	textconv = astextplain
+textconv = astextplain
 
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+clean = git-lfs clean -- %f
+smudge = git-lfs smudge -- %f
+process = git-lfs filter-process
+required = true

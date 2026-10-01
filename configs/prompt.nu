@@ -1,10 +1,12 @@
-# Nushell Prompt Config File
-
-# Global Functions
+# GLOBAL FUNCTIONS
 use std null-device
-export def main [] {[(session), (directory), (duration), (gitstat)] | str join ""}
 
-# Global Helpers
+export def main [] {
+    [(session), (directory), (duration), (gitstat)] | str join ""
+}
+
+
+# GLOBAL HELPERS
 def style [] {
     {
         USER_STYLE: (ansi green_bold),
@@ -14,8 +16,8 @@ def style [] {
         DATETIME_STYLE: (ansi purple),
         BRANCH_STYLE: (ansi light_yellow),
 
-        UPDATED_STYLE: $"(ansi light_cyan)(char record_separator)",
-        OUTDATED_STYLE: $"(ansi light_red)(char unit_separator)",
+        UPDATED_STYLE: $"(ansi light_cyan)(char branch_identical)",
+        OUTDATED_STYLE: $"(ansi light_red)(char branch_untracked)",
         AHEAD_STYLE: $"(ansi green)(char branch_ahead)",
         BEHIND_STYLE: $"(ansi yellow)(char branch_behind)",
 
@@ -29,7 +31,8 @@ def style [] {
     }
 }
 
-# Base Functions
+
+# BASE FUNCTIONS
 def session [] {
     let color = (style)
     let user = (username)
@@ -65,11 +68,11 @@ def duration [] {
     } else if ($seconds >= 60) {
         $label = ($label | append $"($seconds // 60)m ")
         $seconds = ($seconds mod 60)
-    } else if ($seconds <= 0.1) {
-        $seconds = 0.1
+    } else if ($seconds <= 0.01) {
+        $seconds = 0.01
     }
 
-    ($label | append $"($seconds | math round -p 1)s(ansi reset)] " | str join)
+    ($label | append $"($seconds | into string --decimals 2)s(ansi reset)] " | str join)
 }
 
 def datetime [] {
@@ -80,13 +83,14 @@ def datetime [] {
     let ext = (date now |format date "%P" | str uppercase)
 
     if (is-terminal -i) {
-        $"[($color.DATETIME_STYLE)($date) ($day)(ansi white) | ($color.DATETIME_STYLE)($time) ($ext)(ansi reset)] "
+        $"[($color.DATETIME_STYLE)($date) ($day)(ansi white) | ($color.DATETIME_zSTYLE)($time) ($ext)(ansi reset)] "
     } else {
         ""
     }
 }
 
-# Base Helpers
+
+# BASE HELPERS
 def username [] {
     if ("USERNAME" in $env) {
         $env.USERNAME
@@ -129,7 +133,8 @@ def location [] {
     }
 }
 
-# Git Functions
+
+# GIT FUNCTIONS
 def gitstat [] {
     let color = (style)
     let info = (git --no-optional-locks status --porcelain=2 --branch err> (null-device) | str trim | lines)
@@ -142,7 +147,8 @@ def gitstat [] {
     }
 }
 
-# Git Helpers
+
+# GIT HELPERS
 def generator [info] {
     let color = (style)
     mut list = []

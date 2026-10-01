@@ -6,7 +6,7 @@
     "editor.foldingHighlight": false,
     "editor.fontFamily": "Fira Code, monospace",
     "editor.guides.bracketPairsHorizontal": false,
-    "editor.inlayHints.enabled": "off",
+    "editor.inlayHints.enabled": "offUnlessPressed",
     "editor.matchBrackets": "near",
     "editor.minimap.showSlider": "always",
     "editor.occurrencesHighlight": "off",
@@ -78,7 +78,7 @@
     "scm.inputFontSize": 14,
 
     // TERMINAL
-    "terminal.external.windowsExec": "cmder",
+    "terminal.external.windowsExec": "nu",
     "terminal.integrated.altClickMovesCursor": false,
     "terminal.integrated.copyOnSelection": true,
     "terminal.integrated.cursorBlinking": true,
@@ -125,10 +125,13 @@
     "latex-workshop.view.pdf.tab.editorGroup": "current",
     "latex-workshop.view.pdf.zoom": "page-width",
 
+    // POWERSHELL
+    "powershell.enableReferencesCodeLens": false,
+    "powershell.integratedConsole.startInBackground": true,
+
     // OTHERS
     "discord.removeRemoteRepository": true,
     "output.smartScroll.enabled": false,
-    "powershell.integratedConsole.startInBackground": true,
     "telemetry.telemetryLevel": "off",
 
     // PROFILES
@@ -160,8 +163,8 @@
         "nush": {
             "path": "nu.exe",
             "args": [
-                "--config", "${env:Nu_Install_Root}/nushell/config.nu",
-                "--env-config", "${env:Nu_Install_Root}/nushell/env.nu"
+                "--login",
+                "--interactive"
             ],
             "icon": "terminal-tmux"
         }
