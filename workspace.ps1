@@ -87,6 +87,8 @@ Function Install-Buckets {
 
     Invoke-Expression "scoop install 7zip git" *> $Null
     Invoke-Expression "scoop bucket add extras"
+    Invoke-Expression "scoop bucket add nerd-fonts"
+    Invoke-Expression "scoop bucket add java"
     Invoke-Expression "scoop bucket add hashcat $BucketUrl"
     Invoke-Expression "scoop uninstall --purge 7zip git" *> $Null
 }
@@ -96,6 +98,8 @@ Function Test-Buckets {
 
     [PSCustomObject]@{
         ExtrasInstalled = $BucketList.Name -Contains "extras"
+        FontsInstalled = $BucketList.Name -Contains "nerd-fonts"
+        JavaInstalled = $BucketList.Name -Contains "java"
         HashcatInstalled = $BucketList.Name -Contains "hashcat"
     }
 }
@@ -105,6 +109,12 @@ Function Repair-Buckets {
 
     If (-Not $BucketState.ExtrasInstalled) {
         Invoke-Expression "scoop bucket add extras"
+    }
+    If (-Not $BucketState.FontsInstalled) {
+        Invoke-Expression "scoop bucket add nerd-fonts"
+    }
+    If (-Not $BucketState.JavaInstalled) {
+        Invoke-Expression "scoop bucket add java"
     }
     If (-Not $BucketState.HashcatInstalled) {
         Invoke-Expression "scoop bucket add hashcat $BucketUrl"
@@ -301,7 +311,7 @@ Function Update-Components {
     Invoke-Expression "git pull --ff-only"
 }
 
-Function Copy-Configurations {
+Function Sync-Configurations {
     $ConfigFiles = @{
         "gitconfig" = "git\config"
         "wezterm.lua" = "wezterm\wezterm.lua"
@@ -315,7 +325,7 @@ Function Copy-Configurations {
         $DestFile = Join-Path $ConfigHome $ConfigFile.Value
 
         New-Item -Path (Split-Path $DestFile) -ItemType Directory -Force | Out-Null
-        Copy-Item -LiteralPath $SrcFile -Destination $DestFile -Force
+        New-Item -Path $DestFile -Target $SrcFile -ItemType HardLink -Force | Out-Null
     }
 
     $UserDir = Join-Path $CodeDir "data\user-data\User"
@@ -326,7 +336,7 @@ Function Copy-Configurations {
         $DestFile = Join-Path $UserDir $CodeFile
 
         New-Item -Path (Split-Path $DestFile) -ItemType Directory -Force | Out-Null
-        Copy-Item -LiteralPath $SrcFile -Destination $DestFile -Force
+        New-Item -Path $DestFile -Target $SrcFile -ItemType HardLink -Force | Out-Null
     }
 }
 
@@ -361,7 +371,7 @@ If (-Not (Test-Path -LiteralPath $StateFile -PathType Leaf)) {
     Install-Extensions
     Install-Repository
 
-    Copy-Configurations
+    Sync-Configurations
     Write-State
 }
 
@@ -377,6 +387,6 @@ Else {
     Repair-Repository
 
     Update-Components
-    Copy-Configurations
+    Sync-Configurations
     Write-State
 }
