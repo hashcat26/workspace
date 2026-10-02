@@ -28,7 +28,7 @@
     "files.trimTrailingWhitespace": true,
 
     // WORKBENCH
-    "workbench.colorTheme": "Dark+",
+    "workbench.colorTheme": "Dark Modern",
     "workbench.editor.decorations.badges": false,
     "workbench.editor.defaultBinaryEditor": "default",
     "workbench.editor.empty.hint": "hidden",
@@ -130,6 +130,7 @@
     "powershell.integratedConsole.startInBackground": true,
 
     // OTHERS
+    "continue.showInlineTip": false,
     "discord.removeRemoteRepository": true,
     "output.smartScroll.enabled": false,
     "telemetry.telemetryLevel": "off",

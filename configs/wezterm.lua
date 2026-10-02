@@ -110,7 +110,7 @@ config.tab_bar_at_bottom = true
 config.show_tabs_in_tab_bar = false
 config.show_new_tab_button_in_tab_bar = false
 
-config.font = wezterm.font("Fira Code")
+config.font = wezterm.font_with_fallback{"Fira Code", "monospace"}
 config.font_size = 11.00
 
 config.default_cursor_style = "BlinkingBlock"

@@ -33,10 +33,11 @@ lg = log --oneline --graph
 pl = pull origin
 ps = push origin
 rc = rebase --continue
-rs = !git reset --hard HEAD~1 && git push --force origin HEAD
+rs = !git reset --mixed HEAD~1 && git push --force-with-lease origin HEAD
 ru = remote update
 st = status --short --branch
-up = !git remote update && git pull origin
+up = !git remote update && git pull --ff-only origin
+us = restore --staged :/
 
 [diff "astextplain"]
 textconv = astextplain
