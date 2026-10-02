@@ -1,10 +1,11 @@
 {
     // EDITOR
-    "editor.codeLensFontFamily": "Fira Code, monospace",
+    "editor.codeLensFontFamily": "FiraCode Nerd Font Mono, monospace",
     "editor.cursorBlinking": "smooth",
     "editor.dragAndDrop": false,
     "editor.foldingHighlight": false,
-    "editor.fontFamily": "Fira Code, monospace",
+    "editor.fontFamily": "FiraCode Nerd Font Mono, monospace",
+    "editor.fontLigatures": true,
     "editor.guides.bracketPairsHorizontal": false,
     "editor.inlayHints.enabled": "offUnlessPressed",
     "editor.matchBrackets": "near",
@@ -68,7 +69,7 @@
     "search.smartCase": true,
 
     // DEBUG
-    "debug.console.fontFamily": "Fira Code, monospace",
+    "debug.console.fontFamily": "FiraCode Nerd Font Mono, monospace",
     "debug.console.wordWrap": false,
     "debug.terminal.clearBeforeReusing": true,
 
@@ -84,6 +85,7 @@
     "terminal.integrated.cursorBlinking": true,
     "terminal.integrated.defaultProfile.windows": "nush",
     "terminal.integrated.enablePersistentSessions": false,
+    "terminal.integrated.fontLigatures.enabled": true,
     "terminal.integrated.hideOnStartup": "always",
     "terminal.integrated.rightClickBehavior": "paste",
     "terminal.integrated.shellIntegration.enabled": true,
