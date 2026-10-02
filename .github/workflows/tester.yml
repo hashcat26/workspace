@@ -3,44 +3,38 @@ name: Tester
 on:
   workflow_dispatch:
   push:
-    branches: 'master'
-  schedule:
-    - cron: '0 */12 * * *'
+    branches: "master"
+
+permissions:
+  contents: read
 
 jobs:
-  legacy:
-    name: Legacy Test
+  test:
+    name: Workspace Test
     runs-on: windows-latest
+    strategy:
+      matrix:
+        shell: [powershell, pwsh]
+    defaults:
+      run:
+        shell: ${{ matrix.shell }}
     steps:
       - name: Checkout Workspace
-        uses: actions/checkout@main
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 2
           path: hashcat
-      - name: Initialize Validators
-        uses: potatoqualitee/psmodulecache@main
+      - name: Checkout Scoop
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          modules-to-cache: BuildHelpers
-          shell: powershell
-      - name: Test Workspace
-        shell: powershell
+          repository: ScoopInstaller/Scoop
+          path: scoop
+      - name: Fetch Dependencies
+        uses: potatoqualitee/psmodulecache@9e4b63833c22c1768d648e115a9c849afdda22a5 # v6.3
+        with:
+          modules-to-cache: BuildHelpers, Pester
+          shell: ${{ matrix.shell }}
+      - name: Perform Tests
         run: |
-          .\hashcat\binaries\test.ps1
-  latest:
-    name: Latest Test
-    runs-on: windows-latest
-    steps:
-      - name: Checkout Workspace
-        uses: actions/checkout@main
-        with:
-          fetch-depth: 2
-          path: hashcat
-      - name: Initialize Validators
-        uses: potatoqualitee/psmodulecache@main
-        with:
-          modules-to-cache: BuildHelpers
-          shell: pwsh
-      - name: Test Workspace
-        shell: pwsh
-        run: |
+          $Env:SCOOP_HOME = "$(Convert-Path '.\scoop')"
           .\hashcat\binaries\test.ps1
