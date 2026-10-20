@@ -21,9 +21,20 @@ $env.config.abbreviations = {
     la: "ls -a",
     ll: "ls -al",
     lr: "ls -a **/*",
+    mt: "maintain",
     cl: "clear",
+    ex: "exit",
     sc: "scoop",
-    py: "python"
+    py: "python",
+
+    dli: "download img",
+    dlt: "download trk",
+    dlv: "download vid",
+    dla: "download arc",
+    plv: "play vid",
+    pla: "play aud",
+    slh: "split horz",
+    slv: "split vert"
 }
 
 
@@ -41,25 +52,47 @@ def install [...apps] {for $app in $apps {scoop install $app}}
 def remove [...apps] {for $app in $apps {scoop uninstall --purge $app}}
 def fetch [...files] {for $file in $files {aria2c --conf-path configs/aria2.conf $file}}
 
-def img [link] {cd utilities; uv run gallery-dl --cookies cookies.txt --directory ../downloads/images $link}
-def trk [link] {cd utilities; uv run spotdl --cookie-file cookies.txt --output ../downloads/tracks $link}
-def vid [link] {cd utilities; uv run yt-dlp --merge-output-format mp4 --paths ../downloads/videos $link}
-def arc [link] {cd utilities; uv run yt-dlp --config-location ../configs/yt-dlp.conf $link}
-
-def image [...links] {for $link in $links {img $link}}
-def track [...links] {for $link in $links {trk $link}}
-def video [...links] {for $link in $links {vid $link}}
-def archive [...links] {for $link in $links {arc $link}}
-
-alias play = ffplay -fs -autoexit -infbuf -framedrop -hide_banner -window_title ffplay -i -
-def listen [link] {cd utilities; uv run yt-dlp $link --format ba --output - err> (null-device) | play -nodisp}
-def watch [link] {cd utilities; uv run yt-dlp $link --format bv+ba --output - err> (null-device) | play}
-def lurk [link] {cd utilities; uv run yt-dlp $link --format ba* --output - err> (null-device) | play -nodisp}
-def stream [link] {cd utilities; uv run yt-dlp $link --format bv*+ba* --output - err> (null-device) | play}
-
 let command = "cd utilities; uv run yt-dlp --merge-output-format mp4 --paths ../downloads/videos"
 let options = "--output '%(title)s [%(id)s] (%(section_start)s-%(section_end)s).%(ext)s' --force-keyframes-at-cuts"
 def trim [link, time] {[$command, $options, "--download-sections", $time, $link] | str join " " | nu -c $in}
+
+def download [type, ...links] {
+    let workspace = $env.WORKSPACE_ROOT
+
+    let images = ($workspace | path join "downloads" "images")
+    let tracks = ($workspace | path join "downloads" "tracks")
+    let videos = ($workspace | path join "downloads" "videos")
+
+    let cookies = ($workspace | path join "utilities" "cookies.txt")
+    let ytdlp = ($workspace | path join "configs" "yt-dlp.conf")
+
+    for $link in $links {
+        let args = match $type {
+            "img" => {["gallery-dl" "--cookies" $cookies "--directory" $images $link]}
+            "trk" => {["spotdl" "--cookie-file" $cookies "--output" $tracks $link]}
+            "vid" => {["yt-dlp" "--merge-output-format" "mp4" "--paths" $videos $link]}
+            "arc" => {["yt-dlp" "--config-location" $ytdlp $link]}
+            _ => {error make {msg: $"Unsupported download: ($type)"}}
+        }
+
+        uv run --directory ($workspace | path join "utilities") ...$args
+    }
+}
+
+def play [type, link] {
+    let workspace = $env.WORKSPACE_ROOT
+
+    let utilities = ($workspace | path join "utilities" ".venv")
+    let ytdlp = ($utilities | path join "Scripts" "yt-dlp.exe")
+
+    let args = match $type {
+        "vid" => ["--fullscreen" "--taskbar-progress=no"]
+        "aud" => ["--no-video" "--taskbar-progress=no"]
+        _ => {error make {msg: $"Unsupported playback: ($type)"}}
+    }
+
+    mpv --msg-level=demux=fatal,ffmpeg=no,lavf=no $"--script-opts=ytdl_hook-ytdl_path=($ytdlp)" $link ...$args
+}
 
 def split [orientation, ...videos] {
     let count = $videos | length

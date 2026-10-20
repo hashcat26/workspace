@@ -87,6 +87,7 @@
     "terminal.integrated.enablePersistentSessions": false,
     "terminal.integrated.fontLigatures.enabled": true,
     "terminal.integrated.hideOnStartup": "always",
+    "terminal.integrated.initialHint": false,
     "terminal.integrated.rightClickBehavior": "paste",
     "terminal.integrated.shellIntegration.enabled": true,
     "terminal.integrated.smoothScrolling": true,
@@ -95,6 +96,7 @@
     "notebook.consolidatedRunButton": true,
     "notebook.dragAndDropEnabled": false,
     "notebook.lineNumbers": "on",
+    "notebook.output.scrolling": true,
 
     // EXTENSIONS
     "extensions.autoCheckUpdates": false,

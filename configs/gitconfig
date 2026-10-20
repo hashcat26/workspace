@@ -15,6 +15,7 @@ format = web
 symlinks = false
 autocrlf = true
 fscache = true
+longpaths = true
 
 [color]
 interactive = true
