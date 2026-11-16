@@ -1,5 +1,22 @@
+# ==================================================
+# SCRIPT CONFIGURATION
+# ==================================================
+
+[CmdletBinding(SupportsShouldProcess)]
+
+Param (
+    [ValidateSet("Initialize", "Update", "Debug", "Remove")]
+    [String]$TaskMode = "Update",
+    [Switch]$RemoveMode
+)
+
 $ErrorActionPreference = "Continue"
 $WarningPreference = "Continue"
+
+
+# ==================================================
+# SCRIPT VARIABLES
+# ==================================================
 
 $WorkspaceRoot = $PSScriptRoot
 $ConfigHome = Join-Path $WorkspaceRoot ".xdg"
@@ -7,27 +24,6 @@ $ConfigsDir = Join-Path $WorkspaceRoot "configs"
 $ScriptsDir = Join-Path $WorkspaceRoot "downloads\scripts"
 $PackagesDir = Join-Path $WorkspaceRoot "packages"
 $UtilitiesDir = Join-Path $WorkspaceRoot "utilities"
-
-$WorkspaceDirs = @(
-    (Join-Path $WorkspaceRoot "binaries")
-    $ConfigHome
-    $ConfigsDir
-    $ScriptsDir
-    $PackagesDir
-    $UtilitiesDir
-)
-
-ForEach ($WorkspaceDir In $WorkspaceDirs) {
-    New-Item -Path $WorkspaceDir -ItemType Directory -Force | Out-Null
-}
-
-$Env:WORKSPACE_ROOT = $WorkspaceRoot
-$Env:XDG_CONFIG_HOME = $ConfigHome
-$Env:NODE_OPTIONS = "--no-deprecation"
-
-[Environment]::SetEnvironmentVariable("WORKSPACE_ROOT", $WorkspaceRoot, "User")
-[Environment]::SetEnvironmentVariable("XDG_CONFIG_HOME", $ConfigHome, "User")
-
 
 $ScoopDir = Join-Path $PackagesDir "apps\scoop\current"
 $CodeDir = Join-Path $PackagesDir "apps\vscode\current"
@@ -48,6 +44,39 @@ $PkgList = "ipykernel", "gallery-dl", "spotdl", "yt-dlp"
 $ExtList = (Invoke-RestMethod "$BaseUrl/$FileUrl") -Split "\r?\n" | Where-Object {$_}
 
 
+# ==================================================
+# WORKSPACE SETUP
+# ==================================================
+
+Function Set-Directories {
+    $WorkspaceDirs = @(
+        (Join-Path $WorkspaceRoot "binaries")
+        $ConfigHome
+        $ConfigsDir
+        $ScriptsDir
+        $PackagesDir
+        $UtilitiesDir
+    )
+
+    ForEach ($WorkspaceDir In $WorkspaceDirs) {
+        New-Item $WorkspaceDir -ItemType "Directory" -Force | Out-Null
+    }
+}
+
+Function Set-Environment {
+    $Env:WORKSPACE_ROOT = $WorkspaceRoot
+    $Env:XDG_CONFIG_HOME = $ConfigHome
+    $Env:NODE_OPTIONS = "--no-deprecation"
+
+    [Environment]::SetEnvironmentVariable("WORKSPACE_ROOT", $WorkspaceRoot, "User")
+    [Environment]::SetEnvironmentVariable("XDG_CONFIG_HOME", $ConfigHome, "User")
+}
+
+
+# ==================================================
+# COMPONENT INSTALLATION
+# ==================================================
+
 Function Install-Scoop {
     Invoke-RestMethod "https://get.scoop.sh" -OutFile $ScoopFile
     & $ScoopFile -ScoopDir $PackagesDir
@@ -55,32 +84,6 @@ Function Install-Scoop {
     Invoke-Expression "scoop config use_isolated_path true"
     Invoke-Expression "scoop config aria2-warning-enabled false"
 }
-
-Function Test-Scoop {
-    $PrefixDir = Invoke-Expression "scoop prefix scoop"
-    $ConfigList = Invoke-Expression "scoop config"
-
-    [PSCustomObject]@{
-        ScoopInstalled = $PrefixDir -Eq $ScoopDir
-        PathIsolated = $ConfigList.'use_isolated_path' -Eq $True
-        WarningDisabled = $ConfigList.'aria2-warning-enabled' -Eq $False
-    }
-}
-
-Function Repair-Scoop {
-    $ScoopState = $WorkspaceState.Scoop
-
-    If (-Not $ScoopState.ScoopInstalled) {
-        Install-Scoop
-    }
-    If (-Not $ScoopState.PathIsolated) {
-        Invoke-Expression "scoop config use_isolated_path true"
-    }
-    If (-Not $ScoopState.WarningDisabled) {
-        Invoke-Expression "scoop config aria2-warning-enabled false"
-    }
-}
-
 
 Function Install-Buckets {
     Write-Host "Adding Scoop buckets..."
@@ -93,35 +96,6 @@ Function Install-Buckets {
     Invoke-Expression "scoop uninstall --purge 7zip git" *> $Null
 }
 
-Function Test-Buckets {
-    $BucketList = Invoke-Expression "scoop bucket list"
-
-    [PSCustomObject]@{
-        ExtrasInstalled = $BucketList.Name -Contains "extras"
-        FontsInstalled = $BucketList.Name -Contains "nerd-fonts"
-        JavaInstalled = $BucketList.Name -Contains "java"
-        HashcatInstalled = $BucketList.Name -Contains "hashcat"
-    }
-}
-
-Function Repair-Buckets {
-    $BucketState = $WorkspaceState.Buckets
-
-    If (-Not $BucketState.ExtrasInstalled) {
-        Invoke-Expression "scoop bucket add extras"
-    }
-    If (-Not $BucketState.FontsInstalled) {
-        Invoke-Expression "scoop bucket add nerd-fonts"
-    }
-    If (-Not $BucketState.JavaInstalled) {
-        Invoke-Expression "scoop bucket add java"
-    }
-    If (-Not $BucketState.HashcatInstalled) {
-        Invoke-Expression "scoop bucket add hashcat $BucketUrl"
-    }
-}
-
-
 Function Install-Applications {
     $BucketFilter = $DepList | ForEach-Object {"$_*"}
 
@@ -132,6 +106,57 @@ Function Install-Applications {
 
     ForEach ($AppName In $AppList) {
         Invoke-Expression "scoop install hashcat/$AppName"
+    }
+}
+
+Function Install-Project {
+    Invoke-Expression "uv init --bare --directory `"$UtilitiesDir`""
+    Invoke-Expression "uv lock --directory `"$UtilitiesDir`""
+}
+
+Function Install-Packages {
+    ForEach ($PkgName In $PkgList) {
+        Invoke-Expression "uv add $PkgName --directory `"$UtilitiesDir`""
+    }
+}
+
+Function Install-Extensions {
+    ForEach ($ExtName In $ExtList) {
+        Invoke-Expression "code --install-extension $ExtName"
+    }
+}
+
+Function Install-Repository {
+    Invoke-Expression "git init --initial-branch master"
+    Invoke-Expression "git remote add origin $WorkspaceUrl"
+    Invoke-Expression "git fetch origin"
+    Invoke-Expression "git checkout --force master"
+}
+
+
+# ==================================================
+# COMPONENT TESTING
+# ==================================================
+
+Function Test-Scoop {
+    $PrefixDir = Invoke-Expression "scoop prefix scoop"
+    $ConfigList = Invoke-Expression "scoop config"
+
+    [PSCustomObject]@{
+        ScoopInstalled = $PrefixDir -Eq $ScoopDir
+        PathIsolated = $ConfigList.'use_isolated_path' -Eq $True
+        WarningDisabled = $ConfigList.'aria2-warning-enabled' -Eq $False
+    }
+}
+
+Function Test-Buckets {
+    $BucketList = Invoke-Expression "scoop bucket list"
+
+    [PSCustomObject]@{
+        ExtrasInstalled = $BucketList.Name -Contains "extras"
+        FontsInstalled = $BucketList.Name -Contains "nerd-fonts"
+        JavaInstalled = $BucketList.Name -Contains "java"
+        HashcatInstalled = $BucketList.Name -Contains "hashcat"
     }
 }
 
@@ -149,21 +174,6 @@ Function Test-Applications {
     }
 }
 
-Function Repair-Applications {
-    $AppState = $WorkspaceState.Applications
-    $AppEntries = $AppState | Where-Object {-Not $_.AppInstalled}
-
-    ForEach ($AppEntry In $AppEntries) {
-        Invoke-Expression "scoop install hashcat/$($AppEntry.AppName)"
-    }
-}
-
-
-Function Install-Project {
-    Invoke-Expression "uv init --bare --no-readme --directory `"$UtilitiesDir`""
-    Invoke-Expression "uv lock --directory `"$UtilitiesDir`""
-}
-
 Function Test-Project {
     Invoke-Expression "uv lock --check --directory `"$UtilitiesDir`"" *> $Null
     $LockState = $LASTEXITCODE -Eq 0
@@ -172,31 +182,10 @@ Function Test-Project {
     $VenvState = $LASTEXITCODE -Eq 0
 
     [PSCustomObject]@{
-        ProjectCreated = Test-Path -LiteralPath $ProjectFile -PathType Leaf
-        LockCreated = Test-Path -LiteralPath $LockFile -PathType Leaf
+        ProjectCreated = Test-Path -LiteralPath $ProjectFile -PathType "Leaf"
+        LockCreated = Test-Path -LiteralPath $LockFile -PathType "Leaf"
         LockValidated = $LockState
         VenvSynced = $VenvState
-    }
-}
-
-Function Repair-Project {
-    $ProjectState = $WorkspaceState.Project
-
-    If (-Not $ProjectState.ProjectCreated) {
-        Invoke-Expression "uv init --bare --no-readme --directory `"$UtilitiesDir`""
-    }
-    If (-Not $ProjectState.LockCreated -Or -Not $ProjectState.LockValidated) {
-        Invoke-Expression "uv lock --directory `"$UtilitiesDir`""
-    }
-    If (-Not $ProjectState.VenvSynced) {
-        Invoke-Expression "uv sync --directory `"$UtilitiesDir`""
-    }
-}
-
-
-Function Install-Packages {
-    ForEach ($PkgName In $PkgList) {
-        Invoke-Expression "uv add $PkgName --directory `"$UtilitiesDir`""
     }
 }
 
@@ -213,22 +202,6 @@ Function Test-Packages {
     }
 }
 
-Function Repair-Packages {
-    $PkgState = $WorkspaceState.Packages
-    $PkgEntries = $PkgState | Where-Object {-Not $_.PkgInstalled}
-
-    ForEach ($PkgEntry In $PkgEntries) {
-        Invoke-Expression "uv add $($PkgEntry.PkgName) --directory `"$UtilitiesDir`""
-    }
-}
-
-
-Function Install-Extensions {
-    ForEach ($ExtName In $ExtList) {
-        Invoke-Expression "code --install-extension $ExtName"
-    }
-}
-
 Function Test-Extensions {
     $ActList = Invoke-Expression "code --list-extensions"
 
@@ -240,23 +213,6 @@ Function Test-Extensions {
             ExtInstalled = $Null -Ne $ExtEntry
         }
     }
-}
-
-Function Repair-Extensions {
-    $ExtState = $WorkspaceState.Extensions
-    $ExtEntries = $ExtState | Where-Object {-Not $_.ExtInstalled}
-
-    ForEach ($ExtEntry In $ExtEntries) {
-        Invoke-Expression "code --install-extension $($ExtEntry.ExtName)"
-    }
-}
-
-
-Function Install-Repository {
-    Invoke-Expression "git init --initial-branch master"
-    Invoke-Expression "git remote add origin $WorkspaceUrl"
-    Invoke-Expression "git fetch origin"
-    Invoke-Expression "git checkout --force master"
 }
 
 Function Test-Repository {
@@ -279,8 +235,85 @@ Function Test-Repository {
     }
 }
 
+
+# ==================================================
+# COMPONENT REPAIR
+# ==================================================
+
+Function Repair-Scoop {
+    $ScoopState = Test-Scoop
+
+    If (-Not $ScoopState.ScoopInstalled) {
+        Install-Scoop
+    }
+    If (-Not $ScoopState.PathIsolated) {
+        Invoke-Expression "scoop config use_isolated_path true"
+    }
+    If (-Not $ScoopState.WarningDisabled) {
+        Invoke-Expression "scoop config aria2-warning-enabled false"
+    }
+}
+
+Function Repair-Buckets {
+    $BucketState = Test-Buckets
+
+    If (-Not $BucketState.ExtrasInstalled) {
+        Invoke-Expression "scoop bucket add extras"
+    }
+    If (-Not $BucketState.FontsInstalled) {
+        Invoke-Expression "scoop bucket add nerd-fonts"
+    }
+    If (-Not $BucketState.JavaInstalled) {
+        Invoke-Expression "scoop bucket add java"
+    }
+    If (-Not $BucketState.HashcatInstalled) {
+        Invoke-Expression "scoop bucket add hashcat $BucketUrl"
+    }
+}
+
+Function Repair-Applications {
+    $AppState = Test-Applications
+    $AppEntries = $AppState | Where-Object {-Not $_.AppInstalled}
+
+    ForEach ($AppEntry In $AppEntries) {
+        Invoke-Expression "scoop install hashcat/$($AppEntry.AppName)"
+    }
+}
+
+Function Repair-Project {
+    $ProjectState = Test-Project
+
+    If (-Not $ProjectState.ProjectCreated) {
+        Invoke-Expression "uv init --bare --directory `"$UtilitiesDir`""
+    }
+    If (-Not $ProjectState.LockCreated -Or -Not $ProjectState.LockValidated) {
+        Invoke-Expression "uv lock --directory `"$UtilitiesDir`""
+    }
+    If (-Not $ProjectState.VenvSynced) {
+        Invoke-Expression "uv sync --directory `"$UtilitiesDir`""
+    }
+}
+
+Function Repair-Packages {
+    $PkgState = Test-Packages
+    $PkgEntries = $PkgState | Where-Object {-Not $_.PkgInstalled}
+
+    ForEach ($PkgEntry In $PkgEntries) {
+        Invoke-Expression "uv add $($PkgEntry.PkgName) --directory `"$UtilitiesDir`""
+    }
+}
+
+Function Repair-Extensions {
+    $ExtState = Test-Extensions
+    $ExtEntries = $ExtState | Where-Object {-Not $_.ExtInstalled}
+
+    ForEach ($ExtEntry In $ExtEntries) {
+        Invoke-Expression "code --install-extension $($ExtEntry.ExtName)"
+    }
+}
+
 Function Repair-Repository {
-    $RepositoryState = $WorkspaceState.Repository
+    $RepositoryState = Test-Repository
 
     If (-Not $RepositoryState.GitInitialized) {
         Invoke-Expression "git init --initial-branch master"
@@ -300,6 +333,10 @@ Function Repair-Repository {
 }
 
 
+# ==================================================
+# COMPONENT UPDATE
+# ==================================================
+
 Function Update-Components {
     Invoke-Expression "scoop update scoop"
     Invoke-Expression "scoop update --all"
@@ -311,7 +348,7 @@ Function Update-Components {
     Invoke-Expression "git pull --ff-only"
 }
 
-Function Sync-Configurations {
+Function Update-Configurations {
     $ConfigFiles = @{
         "gitconfig" = "git\config"
         "wezterm.lua" = "wezterm\wezterm.lua"
@@ -324,8 +361,8 @@ Function Sync-Configurations {
         $SrcFile = Join-Path $ConfigsDir $ConfigFile.Key
         $DestFile = Join-Path $ConfigHome $ConfigFile.Value
 
-        New-Item -Path (Split-Path $DestFile) -ItemType Directory -Force | Out-Null
-        New-Item -Path $DestFile -Target $SrcFile -ItemType HardLink -Force | Out-Null
+        New-Item (Split-Path $DestFile) -ItemType "Directory" -Force | Out-Null
+        New-Item $DestFile -Target $SrcFile -ItemType "HardLink" -Force | Out-Null
     }
 
     $UserDir = Join-Path $CodeDir "data\user-data\User"
@@ -335,34 +372,121 @@ Function Sync-Configurations {
         $SrcFile = Join-Path $ConfigsDir $CodeFile
         $DestFile = Join-Path $UserDir $CodeFile
 
-        New-Item -Path (Split-Path $DestFile) -ItemType Directory -Force | Out-Null
-        New-Item -Path $DestFile -Target $SrcFile -ItemType HardLink -Force | Out-Null
+        New-Item (Split-Path $DestFile) -ItemType "Directory" -Force | Out-Null
+        New-Item $DestFile -Target $SrcFile -ItemType "HardLink" -Force | Out-Null
+    }
+}
+
+
+# ==================================================
+# STATE MANAGEMENT
+# ==================================================
+
+Function Import-Tests {
+    [Ordered]@{
+        Scoop = {Test-Scoop}
+        Buckets = {Test-Buckets}
+        Applications = {@(Test-Applications)}
+        Project = {Test-Project}
+        Packages = {@(Test-Packages)}
+        Extensions = {@(Test-Extensions)}
+        Repository = {Test-Repository}
     }
 }
 
 Function Read-State {
     Write-Host "Checking workspace state..."
+    $WorkspaceState = [Ordered]@{}
 
-    [PSCustomObject]@{
-        Scoop = Test-Scoop
-        Buckets = Test-Buckets
-        Applications = @(Test-Applications)
-        Project = Test-Project
-        Packages = @(Test-Packages)
-        Extensions = @(Test-Extensions)
-        Repository = Test-Repository
+    (Import-Tests).GetEnumerator() | ForEach-Object {
+        $WorkspaceState[$_.Key] = & $_.Value
     }
+
+    [PSCustomObject]$WorkspaceState
 }
 
 Function Write-State {
-    $WorkspaceState = Read-State
-    $WorkspaceState | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $StateFile
-
+    Read-State | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $StateFile
     Write-Host "Workspace state saved to $StateFile"
 }
 
 
-If (-Not (Test-Path -LiteralPath $StateFile -PathType Leaf)) {
+# ==================================================
+# CLEANUP UTILITIES
+# ==================================================
+
+Function Protect-Action {
+    [CmdletBinding(SupportsShouldProcess)]
+
+    Param (
+        [Parameter(Mandatory)][String]$ActionMessage,
+        [Parameter(Mandatory)][String]$ActionTarget,
+        [Parameter(Mandatory)][ScriptBlock]$ActionBlock
+    )
+
+    If ($PSCmdlet.ShouldProcess($ActionTarget, $ActionMessage)) {
+        & $ActionBlock
+    }
+}
+
+Function Search-Processes {
+    Param (
+        [Parameter(Mandatory)][String]$AppName
+    )
+
+    $AppDir = Join-Path $PackagesDir "apps\$AppName\"
+    $ProcList = Get-CimInstance "Win32_Process"
+
+    $ProcMap, $ChildMap = @(@{}, @{})
+    $ParentQueue = [System.Collections.Generic.Queue[Object]]::New()
+
+    ForEach ($ProcName In $ProcList) {
+        $ParentId = [Int]$ProcName.ParentProcessId
+
+        If (-Not $ChildMap.Contains($ParentId)) {
+            $ChildMap[$ParentId] = [System.Collections.Generic.List[Object]]::New()
+        }
+
+        $ChildMap[$ParentId].Add($ProcName)
+    }
+
+    ForEach ($ProcName In $ProcList) {
+        If ($ProcName.ExecutablePath -Like "$AppDir*") {
+            $ProcId = [Int]$ProcName.ProcessId
+            $ProcMap[$ProcId] = 0
+            $ParentQueue.Enqueue($ProcName)
+        }
+    }
+
+    While ($ParentQueue.Count -Gt 0) {
+        $ParentProc = $ParentQueue.Dequeue()
+        $ParentId = [Int]$ParentProc.ProcessId
+
+        If ($ChildMap.Contains($ParentId)) {
+            ForEach ($ChildProc In $ChildMap[$ParentId]) {
+                $ChildId = [Int]$ChildProc.ProcessId
+
+                If (-Not $ProcMap.Contains($ChildId)) {
+                    $ProcMap[$ChildId] = $ProcMap[$ParentId] + 1
+                    $ParentQueue.Enqueue($ChildProc)
+                }
+            }
+        }
+    }
+
+    $TargetList = $ProcList | Where-Object {$ProcMap.Contains([Int]$_.ProcessId)}
+    $TargetList | Sort-Object {-$ProcMap[[Int]$_.ProcessId]}
+}
+
+
+# ==================================================
+# TASK LISTING
+# ==================================================
+
+Function Initialize-Workspace {
+    Set-Directories
+    Set-Environment
+
     Install-Scoop
     Install-Buckets
     Install-Applications
@@ -371,12 +495,18 @@ If (-Not (Test-Path -LiteralPath $StateFile -PathType Leaf)) {
     Install-Extensions
     Install-Repository
 
-    Sync-Configurations
+    Update-Configurations
     Write-State
 }
 
-Else {
-    $WorkspaceState = Read-State
+Function Update-Workspace {
+    If (-Not (Test-Path -LiteralPath $StateFile -PathType "Leaf")) {
+        Initialize-Workspace
+        Return
+    }
+
+    Set-Directories
+    Set-Environment
 
     Repair-Scoop
     Repair-Buckets
@@ -387,6 +517,92 @@ Else {
     Repair-Repository
 
     Update-Components
-    Sync-Configurations
+    Update-Configurations
     Write-State
+}
+
+Function Debug-Workspace {
+    Write-Host "Testing workspace components..." -ForegroundColor "Red"
+
+    ForEach ($TestSection In (Import-Tests).GetEnumerator()) {
+        $TestResult = & $TestSection.Value
+        Write-Host "`n$($TestSection.Key.ToUpper())" -ForegroundColor "Cyan"
+
+        $OutputFormat = If ($TestResult -Is [Array]) {"Table"} Else {"List"}
+        $OutputLines = ($TestResult | & "Format-$OutputFormat" | Out-String).Trim()
+
+        ForEach ($OutputLine In $OutputLines -Split "\r?\n") {
+            $OutputColor = If ($OutputLine -Match "\bFalse\b") {"Red"} Else {"Gray"}
+            Write-Host $OutputLine -ForegroundColor $OutputColor
+        }
+    }
+}
+
+Function Remove-Workspace {
+    $ProcessArguments = @(
+        "-NoProfile"
+        "-ExecutionPolicy", "Bypass"
+        "-File", "`"$PSCommandPath`""
+        "-RemoveMode"
+        $(If ($WhatIfPreference) {"-WhatIf"})
+    )
+
+    $ProcessParameters = @{
+        FilePath = "powershell.exe"
+        WindowStyle = "Maximized"
+        ArgumentList = $ProcessArguments
+    }
+
+    Start-Process @ProcessParameters
+}
+
+
+# ==================================================
+# TASK DISPATCH
+# ==================================================
+
+If ($RemoveMode) {
+    $AppList = Invoke-Expression "scoop list" 6> $Null
+    $AppList += [PSCustomObject]@{Name = "scoop"}
+
+    $EnvList = "WORKSPACE_ROOT", "XDG_CONFIG_HOME", "NODE_OPTIONS"
+    $EnvList += "SCOOP_PATH"
+
+    $ItemFilter = "workspace.ps1", "downloads"
+    $ItemList = Get-ChildItem $WorkspaceRoot -Exclude $ItemFilter -Force
+
+    ForEach ($AppEntry In $AppList) {
+        Search-Processes -AppName $AppEntry.Name | ForEach-Object {
+            Protect-Action "Terminate Process" "$($_.Name):$($_.ProcessId)" {
+                Stop-Process $_.ProcessId -ErrorAction "SilentlyContinue" -Force
+            }
+        }
+
+        Protect-Action "Purge Application" $AppEntry.Name {
+            Invoke-Expression "scoop uninstall --purge $($AppEntry.Name)"
+        }
+    }
+
+    ForEach ($EnvEntry In $EnvList) {
+        Protect-Action "Unset Environment" $EnvEntry {
+            [Environment]::SetEnvironmentVariable($EnvEntry, $Null, "User")
+            [Environment]::SetEnvironmentVariable($EnvEntry, $Null, "Process")
+        }
+    }
+
+    ForEach ($ItemEntry In $ItemList) {
+        Protect-Action "Remove Item" $ItemEntry.FullName {
+            Remove-Item $ItemEntry.FullName -Recurse -Force
+        }
+    }
+
+    Write-Host "`nPress any key to close this window..." -ForegroundColor "Yellow"
+    $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown") | Out-Null; Exit
+}
+
+Switch ($TaskMode) {
+    "Initialize" {Initialize-Workspace}
+    "Update" {Update-Workspace}
+    "Debug" {Debug-Workspace}
+    "Remove" {Remove-Workspace}
 }
