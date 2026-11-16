@@ -50,6 +50,7 @@ alias list = scoop list
 def clean [] {scoop cache rm --all; scoop cleanup --all}
 def install [...apps] {for $app in $apps {scoop install $app}}
 def remove [...apps] {for $app in $apps {scoop uninstall --purge $app}}
+def refresh [...apps] {for $app in $apps {scoop uninstall --purge $app; scoop install $app}}
 def fetch [...files] {for $file in $files {aria2c --conf-path configs/aria2.conf $file}}
 
 let command = "cd utilities; uv run yt-dlp --merge-output-format mp4 --paths ../downloads/videos"
@@ -94,7 +95,7 @@ def play [type, link] {
     mpv --msg-level=demux=fatal,ffmpeg=no,lavf=no $"--script-opts=ytdl_hook-ytdl_path=($ytdlp)" $link ...$args
 }
 
-def split [orientation, ...videos] {
+def split [orientation, --zoom = 1.00, ...videos] {
     let count = $videos | length
 
     let width = if $orientation == "horz" {1920 / $count} else {1920}
@@ -103,17 +104,23 @@ def split [orientation, ...videos] {
 
     let size = $"($width):($height)"
     let cover = $"scale=($size):force_original_aspect_ratio=increase,crop=($size)"
+    let fill = $"scale=iw*($zoom):ih*($zoom),crop=iw/($zoom):ih/($zoom)"
 
     let transforms = $videos
         | enumerate
-        | each {|video| $"[vid($video.index + 1)]($cover)[sv($video.index + 1)]"}
+        | each {|video| $"[vid($video.index + 1)]($cover),($fill)[sv($video.index + 1)]"}
 
     let inputs = 1..$count
         | each {|index| $"[sv($index)]"}
         | str join ""
 
+    let streams = 1..$count
+        | each {|index| $"[aid($index)]"}
+        | str join ""
+
     let filter = $transforms
         | append $"($inputs)($stack)=inputs=($count):shortest=1,setsar=1[vo]"
+        | append $"($streams)amix=inputs=($count):duration=shortest[ao]"
         | str join ";"
 
     let external = $videos

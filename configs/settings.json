@@ -136,6 +136,7 @@
     // OTHERS
     "continue.showInlineTip": false,
     "discord.removeRemoteRepository": true,
+    "git.openRepositoryInParentFolders": "always",
     "output.smartScroll.enabled": false,
     "telemetry.telemetryLevel": "off",
 
